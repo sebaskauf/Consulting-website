@@ -879,11 +879,11 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
           @media (max-width: 900px) {
             .fx-content {
               display: grid;
-              grid-template-columns: 100px 1fr;
+              grid-template-columns: 70px 1fr;
               grid-template-rows: 1fr;
               grid-template-areas: "left center";
-              gap: 1.5rem;
-              padding: 0 1rem;
+              gap: 1rem;
+              padding: 0 0.5rem;
               align-items: center;
               flex: 0 0 auto;
               margin-top: -5vh;
@@ -891,7 +891,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             .fx-left {
               grid-area: left;
               max-height: none;
-              min-height: 120px;
+              min-height: 100px;
               align-items: center;
               justify-content: center;
               display: flex;
@@ -904,7 +904,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             }
             .fx-center {
               grid-area: center;
-              padding: 0 0.5rem 0 15rem;
+              padding: 0 0.5rem 0 0;
               min-height: 100px;
               display: flex;
               align-items: center;
@@ -912,8 +912,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               padding-top: 200px;
             }
             .fx-featured-title {
-              font-size: clamp(1.2rem, 4.5vw, 1.7rem);
-              line-height: 1.3;
+              font-size: clamp(0.9rem, 3.8vw, 1.4rem);
+              line-height: 1.25;
               text-align: left;
               width: 100%;
               max-width: 100%;
@@ -931,7 +931,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             }
             .fx-item {
               position: absolute;
-              font-size: clamp(2.8rem, 12vw, 4rem);
+              font-size: clamp(2.2rem, 10vw, 3.5rem);
               margin: 0;
               font-weight: 900;
               left: 50%;
