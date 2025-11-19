@@ -904,17 +904,18 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             }
             .fx-center {
               grid-area: center;
-              padding: 0 0.5rem 0 0;
+              padding: 0 1rem 0 0;
               min-height: 100px;
               display: flex;
               align-items: center;
-              text-align: left;
+              justify-content: flex-end;
+              text-align: right;
               padding-top: 200px;
             }
             .fx-featured-title {
               font-size: clamp(0.9rem, 3.8vw, 1.4rem);
               line-height: 1.25;
-              text-align: left;
+              text-align: right;
               width: 100%;
               max-width: 100%;
               word-wrap: break-word;
