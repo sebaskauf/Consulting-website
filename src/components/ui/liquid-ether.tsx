@@ -873,7 +873,7 @@ export default function LiquidEther({
       poisson: Poisson | null = null;
       pressure: Pressure | null = null;
 
-      constructor(options: any) {
+      constructor(options?: any) {
         this.options = {
           iterations_poisson: 32,
           iterations_viscous: 32,
@@ -885,7 +885,7 @@ export default function LiquidEther({
           dt: 0.014,
           isViscous: false,
           BFECC: true,
-          ...options
+          ...(options || {})
         };
         this.fbos = {
           vel_0: null,
