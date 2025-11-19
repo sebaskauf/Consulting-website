@@ -513,7 +513,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                     ) : s.background ? (
                       <>
                         <img
-                          ref={(el) => el && (bgRefs.current[i] = el)}
+                          ref={(el) => { if (el) bgRefs.current[i] = el; }}
                           src={s.background}
                           alt=""
                           className="fx-bg-img"
