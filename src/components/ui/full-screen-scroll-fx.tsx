@@ -892,10 +892,11 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               max-height: none;
               min-height: 120px;
               align-items: center;
-              justify-content: center;
+              justify-content: flex-start;
               display: flex;
               position: relative;
               overflow: visible;
+              padding-top: 0;
             }
             .fx-right {
               display: none;
@@ -903,10 +904,11 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             .fx-center {
               order: 2;
               padding: 0 0 0 1rem;
-              min-height: auto;
+              min-height: 100px;
               display: flex;
-              align-items: center;
+              align-items: flex-start;
               text-align: left;
+              padding-top: 10px;
             }
             .fx-featured-title {
               font-size: clamp(1.4rem, 5vw, 1.9rem);
@@ -920,9 +922,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               height: 100%;
               min-height: 100px;
               display: flex;
-              align-items: center;
+              align-items: flex-start;
               justify-content: center;
               overflow: visible;
+              padding-top: 10px;
             }
             .fx-item {
               position: absolute;
@@ -930,8 +933,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               margin: 0;
               font-weight: 900;
               left: 40%;
-              top: 50%;
-              transform: translate(-50%, -50%);
+              top: 10px;
+              transform: translateX(-50%);
             }
             .fx-header {
               padding: 8vh 1rem 0;
