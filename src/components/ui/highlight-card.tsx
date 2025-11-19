@@ -5,13 +5,13 @@ import { Card } from "@/components/ui/card";
 
 interface ComponentProps {
   title: string;
-  description: string[];
+  description: string;
   icon?: ReactNode;
 }
 
 const Component: FC<ComponentProps> = ({ title, description, icon }) => {
   return (
-    <div className="group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:-rotate-1">
+    <div className="group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:-rotate-1 h-full flex">
       <style jsx>{`
         @keyframes ping-slow {
           0%, 100% {
@@ -27,7 +27,7 @@ const Component: FC<ComponentProps> = ({ title, description, icon }) => {
           animation: ping-slow 4s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
       `}</style>
-      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-full max-w-[350px]">
+      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-full max-w-[220px] sm:max-w-[360px] h-full">
 
 
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -39,39 +39,36 @@ const Component: FC<ComponentProps> = ({ title, description, icon }) => {
         </div>
 
 
-        <div className="p-6 sm:p-8 relative z-10 flex flex-col items-center text-center">
-          <div className="relative mb-5 sm:mb-6">
-            <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping-slow"></div>
-            <div className="absolute inset-0 rounded-full border border-white/10 animate-pulse"></div>
+        <div className="p-4 sm:p-6 relative z-10 flex flex-col items-center text-center h-full">
+          <div className="flex-grow flex flex-col items-center justify-center">
+            <div className="relative mb-3 sm:mb-5">
+              <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping-slow"></div>
+              <div className="absolute inset-0 rounded-full border border-white/10 animate-pulse"></div>
 
-            <div className="p-4 sm:p-6 rounded-full backdrop-blur-lg border border-white/20 bg-gradient-to-br from-black/80 to-black/60 shadow-2xl transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 hover:shadow-white/20">
-              <div className="transform group-hover:rotate-180 transition-transform duration-700">
-                {icon}
+              <div className="p-3 sm:p-5 rounded-full backdrop-blur-lg border border-white/20 bg-gradient-to-br from-black/80 to-black/60 shadow-2xl transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 hover:shadow-white/20">
+                <div className="transform group-hover:rotate-180 transition-transform duration-700">
+                  {icon}
+                </div>
               </div>
             </div>
+
+            <h3 className="mb-2 sm:mb-3 text-lg sm:text-2xl font-bold bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent animate-pulse transform group-hover:scale-105 transition-transform duration-300">
+              {title}
+            </h3>
+
+            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed sm:leading-relaxed transform group-hover:text-gray-200 transition-colors duration-300">
+              {description}
+            </p>
           </div>
 
-          <h3 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent animate-pulse transform group-hover:scale-105 transition-transform duration-300">
-            {title}
-          </h3>
+          <div className="flex-shrink-0 mt-3 sm:mt-5">
+            <div className="w-1/3 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent rounded-full transform group-hover:w-1/2 group-hover:h-1 transition-all duration-500 animate-pulse mx-auto"></div>
 
-          <div className="space-y-1 max-w-sm">
-            {description.map((line, idx) => (
-              <p
-                key={idx}
-                className="text-gray-300 text-sm leading-relaxed transform group-hover:text-gray-200 transition-colors duration-300"
-              >
-                {line}
-              </p>
-            ))}
-          </div>
-
-          <div className="mt-6 w-1/3 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent rounded-full transform group-hover:w-1/2 group-hover:h-1 transition-all duration-500 animate-pulse"></div>
-
-          <div className="flex space-x-2 mt-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
-            <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+            <div className="flex space-x-1.5 sm:space-x-2 mt-2 sm:mt-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300 justify-center">
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full animate-bounce"></div>
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+              <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+            </div>
           </div>
         </div>
 

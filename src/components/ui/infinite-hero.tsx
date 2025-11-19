@@ -87,8 +87,8 @@ export default function InfiniteHero() {
             {/* Gradient Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" style={{ zIndex: 1 }} />
 
-            <div className="relative z-10 flex h-svh w-full items-center justify-center px-4 sm:px-6 pb-20 sm:pb-16 pt-20 sm:pt-12" style={{ zIndex: 10 }}>
-                <div className="text-center max-w-4xl mx-auto">
+            <div className="relative z-10 flex h-svh w-full items-center justify-center px-4 sm:px-6 pb-20 sm:pb-16 pt-12 sm:pt-12" style={{ zIndex: 10 }}>
+                <div className="text-center max-w-4xl mx-auto -mt-12 sm:-mt-6">
                     <div ref={h1Ref} className="mx-auto max-w-5xl">
                         <div
                             className="text-[clamp(2.5rem,8vw,6.5rem)] text-white text-center"
@@ -127,7 +127,7 @@ export default function InfiniteHero() {
 
                     <p
                         ref={pRef}
-                        className="mx-auto mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed px-2"
+                        className="mx-auto mt-6 sm:mt-4 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed px-2"
                         style={{
                             fontWeight: 400,
                             letterSpacing: '-0.01em'
@@ -202,7 +202,7 @@ export default function InfiniteHero() {
             </div>
 
             {/* Trust Widget - Company Logos */}
-            <div className="absolute bottom-2 sm:bottom-8 left-0 right-0 z-20 px-4">
+            <div className="absolute bottom-16 sm:bottom-4 left-0 right-0 z-20 px-4">
                 <Logos3
                     heading="Vertraut von vielen Unternehmen"
                 />

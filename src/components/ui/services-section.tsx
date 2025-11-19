@@ -14,63 +14,33 @@ export function ServicesSection() {
   const services = [
     {
       title: "KI-Beratung",
-      description: [
-        "Gemeinsam analysieren wir Ihr Unternehmen",
-        "und identifizieren Potenziale für KI-Lösungen,",
-        "die echten Mehrwert schaffen und",
-        "Ihre Prozesse nachhaltig optimieren.",
-      ],
-      icon: <Lightbulb className="w-8 h-8 text-white" />,
+      description: "Gemeinsam analysieren wir Ihr Unternehmen und identifizieren Potenziale für KI-Lösungen, die echten Mehrwert schaffen und Ihre Prozesse nachhaltig optimieren.",
+      icon: <Lightbulb className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
     {
       title: "Prozessanalyse",
-      description: [
-        "Intensive Analyse Ihrer bestehenden",
-        "Geschäftsprozesse zur Identifikation der",
-        "wichtigsten Automatisierungsmöglichkeiten",
-        "für maximale Effizienzsteigerung.",
-      ],
-      icon: <Search className="w-8 h-8 text-white" />,
+      description: "Intensive Analyse Ihrer bestehenden Geschäftsprozesse zur Identifikation der wichtigsten Automatisierungsmöglichkeiten für maximale Effizienzsteigerung.",
+      icon: <Search className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
     {
       title: "Intensiv-Workshop",
-      description: [
-        "Gemeinsamer Workshop mit Ihrem Team,",
-        "um die optimale KI-Strategie zu entwickeln",
-        "und individuelle Lösungen für Ihre",
-        "spezifischen Anforderungen zu erarbeiten.",
-      ],
-      icon: <Users className="w-8 h-8 text-white" />,
+      description: "Gemeinsamer Workshop mit Ihrem Team, um die optimale KI-Strategie zu entwickeln und individuelle Lösungen für Ihre spezifischen Anforderungen zu erarbeiten.",
+      icon: <Users className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
     {
       title: "KI-Entwicklung",
-      description: [
-        "Professionelle Entwicklung maßgeschneiderter",
-        "KI-Lösungen mit modernsten Technologien,",
-        "perfekt abgestimmt auf die Bedürfnisse",
-        "Ihres Unternehmens und Ihrer Branche.",
-      ],
-      icon: <Code className="w-8 h-8 text-white" />,
+      description: "Professionelle Entwicklung maßgeschneiderter KI-Lösungen mit modernsten Technologien, perfekt abgestimmt auf die Bedürfnisse Ihres Unternehmens und Ihrer Branche.",
+      icon: <Code className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
     {
       title: "Implementierung",
-      description: [
-        "Nahtlose Integration der KI-Lösungen",
-        "in Ihre bestehende IT-Infrastruktur mit",
-        "minimalem Aufwand und maximaler",
-        "Kompatibilität zu Ihren Systemen.",
-      ],
-      icon: <Rocket className="w-8 h-8 text-white" />,
+      description: "Nahtlose Integration der KI-Lösungen in Ihre bestehende IT-Infrastruktur mit minimalem Aufwand und maximaler Kompatibilität zu Ihren Systemen.",
+      icon: <Rocket className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
     {
       title: "Support & Updates",
-      description: [
-        "Kontinuierlicher Support und regelmäßige",
-        "Updates halten Ihre KI-Lösungen auf dem",
-        "neuesten Stand der Technik und sichern",
-        "langfristigen Erfolg und Wettbewerbsvorteile.",
-      ],
-      icon: <HeadphonesIcon className="w-8 h-8 text-white" />,
+      description: "Kontinuierlicher Support und regelmäßige Updates halten Ihre KI-Lösungen auf dem neuesten Stand der Technik und sichern langfristigen Erfolg und Wettbewerbsvorteile.",
+      icon: <HeadphonesIcon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />,
     },
   ];
 
@@ -92,7 +62,7 @@ export function ServicesSection() {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 place-items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-5 place-items-center auto-rows-fr">
           {services.map((service, index) => (
             <HighlightCard
               key={index}

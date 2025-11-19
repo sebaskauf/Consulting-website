@@ -897,6 +897,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               position: relative;
               overflow: visible;
               padding-top: 0;
+              padding-left: 0.5rem;
             }
             .fx-right {
               display: none;
@@ -932,7 +933,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               font-size: clamp(3.5rem, 15vw, 5rem);
               margin: 0;
               font-weight: 900;
-              left: 30%;
+              left: 25%;
               top: 10px;
               transform: translateX(-50%);
             }
