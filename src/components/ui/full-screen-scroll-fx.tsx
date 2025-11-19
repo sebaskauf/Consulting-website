@@ -908,7 +908,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               display: flex;
               align-items: flex-start;
               text-align: left;
-              padding-top: 30px;
+              padding-top: 45px;
             }
             .fx-featured-title {
               font-size: clamp(1.4rem, 5vw, 1.9rem);
