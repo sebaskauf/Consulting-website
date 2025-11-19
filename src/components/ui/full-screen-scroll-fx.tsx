@@ -844,32 +844,64 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             text-align: center;
             position: relative;
             flex-shrink: 0;
+            min-height: 80px;
           }
-          .fx-footer-description {
-            color: var(--fx-text);
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            font-weight: 700;
-            font-style: italic;
-            letter-spacing: 0.01em;
-            line-height: 1.5;
-            text-transform: none;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-            opacity: 0;
-            visibility: hidden;
-            position: absolute;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%) translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+
+          /* Desktop only: Use absolute positioning with transitions */
+          @media (min-width: 1201px) {
+            .fx-footer-description {
+              color: var(--fx-text);
+              font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+              font-weight: 700;
+              font-style: italic;
+              letter-spacing: 0.01em;
+              line-height: 1.5;
+              text-transform: none;
+              max-width: 600px;
+              margin: 0 auto 1.5rem;
+              opacity: 0;
+              visibility: hidden;
+              position: absolute;
+              left: 50%;
+              top: 0;
+              transform: translateX(-50%) translateY(10px);
+              transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+            }
+            .fx-footer-description.active {
+              opacity: 1;
+              visibility: visible;
+              position: relative;
+              left: auto;
+              top: auto;
+              transform: translateX(0) translateY(0);
+            }
           }
-          .fx-footer-description.active {
-            opacity: 1;
-            visibility: visible;
-            position: relative;
-            left: auto;
-            top: auto;
-            transform: translateX(0) translateY(0);
+
+          /* Tablet/Semi-large screens: Use same approach as mobile - no animations */
+          @media (max-width: 1200px) {
+            .fx-footer-description {
+              color: var(--fx-text);
+              font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+              font-weight: 700;
+              font-style: italic;
+              letter-spacing: 0.01em;
+              line-height: 1.5;
+              text-transform: none;
+              max-width: 600px;
+              margin: 0 auto 1.5rem;
+              position: static;
+              left: auto;
+              top: auto;
+              transform: none;
+              transition: none;
+              display: none;
+            }
+            .fx-footer-description.active {
+              display: block;
+              opacity: 1;
+              visibility: visible;
+              position: static;
+            }
           }
           .fx-footer-title { color: var(--fx-text); font-size: clamp(1.6rem, 7vw, 7rem); font-weight: 900; letter-spacing: -0.01em; line-height: 0.9; }
           .fx-progress { width: 200px; height: 2px; margin: 1rem auto 0; background: rgba(245,245,245,0.28); position: relative; }
@@ -936,11 +968,11 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               margin: 0;
               font-weight: 900;
               left: 50%;
-              top: -10%;
+              top: 45%;
               transform: translateX(-50%);
             }
             .fx-header {
-              padding: 8vh 1rem 0;
+              padding: 15vh 1rem 0;
               font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
             .fx-footer {
