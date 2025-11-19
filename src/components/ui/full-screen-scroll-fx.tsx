@@ -871,7 +871,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               padding: 0 1rem;
               align-items: center;
               flex: 0 0 auto;
-              margin-top: 24vh;
+              margin-top: 8vh;
             }
             .fx-left {
               order: 1;
@@ -925,7 +925,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             }
             .fx-footer {
               padding: 1vh 1rem 3vh;
-              margin-top: 20vh;
+              margin-top: 24vh;
             }
             .fx-footer-description {
               font-size: clamp(0.85rem, 3vw, 1rem);
