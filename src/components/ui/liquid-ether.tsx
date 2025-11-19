@@ -578,6 +578,9 @@ export default function LiquidEther({
 
     class Advection extends ShaderPass {
       line: THREE.LineSegments | null = null;
+      _dt: number = 0.014;
+      _isBounce: boolean = false;
+      _BFECC: boolean = true;
 
       constructor(simProps: any) {
         super({
@@ -619,10 +622,16 @@ export default function LiquidEther({
         if (this.scene) this.scene.add(this.line);
       }
 
-      update({ dt, isBounce, BFECC }: any) {
-        this.uniforms.dt.value = dt;
-        if (this.line) this.line.visible = isBounce;
-        this.uniforms.isBFECC.value = BFECC;
+      setParams({ dt, isBounce, BFECC }: any) {
+        this._dt = dt;
+        this._isBounce = isBounce;
+        this._BFECC = BFECC;
+      }
+
+      update() {
+        this.uniforms.dt.value = this._dt;
+        if (this.line) this.line.visible = this._isBounce;
+        this.uniforms.isBFECC.value = this._BFECC;
         super.update();
       }
     }
@@ -945,11 +954,12 @@ export default function LiquidEther({
           this.boundarySpace.copy(this.cellScale);
         }
         if (this.advection) {
-          this.advection.update({
+          this.advection.setParams({
             dt: this.options.dt,
             isBounce: this.options.isBounce,
             BFECC: this.options.BFECC
           });
+          this.advection.update();
         }
 
         // Add constant VERY strong ambient force for maximum visible waves
