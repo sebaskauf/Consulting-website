@@ -156,7 +156,7 @@ export function ContactForm() {
                 Buchen Sie direkt einen Termin für ein kostenloses Erstgespräch (30 Min).
               </p>
               <GlassButton
-                size="md"
+                size="lg"
                 contentClassName="font-medium tracking-wide w-full"
                 onClick={() => window.open("https://calendly.com/your-link", "_blank")}
               >
