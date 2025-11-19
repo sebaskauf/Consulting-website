@@ -381,12 +381,27 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
       leftItemRefs.current.forEach((el, i) => {
         el.classList.toggle("active", i === to);
-        gsap.to(el, {
-          opacity: i === to ? 1 : 0.35,
-          x: i === to ? 10 : 0,
-          duration: D * 0.6,
-          ease: "power3.out",
-        });
+
+        // Different animation for mobile vs desktop
+        const isMobile = window.innerWidth <= 900;
+
+        if (isMobile) {
+          // Mobile: center numbers with scale animation
+          gsap.to(el, {
+            opacity: i === to ? 1 : 0,
+            scale: i === to ? 1 : 0.8,
+            duration: D * 0.6,
+            ease: "power3.out",
+          });
+        } else {
+          // Desktop: original animation
+          gsap.to(el, {
+            opacity: i === to ? 1 : 0.35,
+            x: i === to ? 10 : 0,
+            duration: D * 0.6,
+            ease: "power3.out",
+          });
+        }
       });
       rightItemRefs.current.forEach((el, i) => {
         el.classList.toggle("active", i === to);
@@ -835,19 +850,20 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: auto 1fr;
-              grid-template-rows: 1fr;
-              gap: 1.5rem;
+              grid-template-columns: 1fr;
+              grid-template-rows: auto 1fr;
+              gap: 2rem;
               padding: 2rem 1rem;
               align-items: center;
             }
             .fx-left {
               order: 1;
-              max-height: none;
-              min-height: auto;
+              max-height: 150px;
+              min-height: 100px;
               align-items: center;
               justify-content: center;
               display: flex;
+              position: relative;
             }
             .fx-right {
               display: none;
@@ -858,25 +874,34 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               min-height: auto;
               display: flex;
               align-items: center;
-              text-align: left;
+              text-align: center;
             }
             .fx-featured-title {
-              font-size: clamp(1.25rem, 4.5vw, 1.75rem);
+              font-size: clamp(1.5rem, 5vw, 2rem);
               line-height: 1.3;
-              text-align: left;
+              text-align: center;
+              width: 100%;
             }
             .fx-track {
-              transform: none !important;
+              position: relative;
+              width: 100%;
+              height: 100px;
               display: flex;
-              flex-direction: column;
               align-items: center;
               justify-content: center;
-              gap: 0;
             }
             .fx-item {
-              font-size: clamp(3rem, 12vw, 4rem);
+              position: absolute;
+              font-size: clamp(3.5rem, 15vw, 5rem);
               margin: 0;
               font-weight: 900;
+              opacity: 0.35;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+            .fx-item.active {
+              opacity: 1;
             }
             .fx-header {
               padding: 4vh 1rem 2vh;
