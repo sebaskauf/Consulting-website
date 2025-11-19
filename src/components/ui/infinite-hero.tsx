@@ -95,19 +95,18 @@ export default function InfiniteHero() {
                             style={{
                                 fontWeight: 700,
                                 letterSpacing: '-0.02em',
-                                lineHeight: '1'
+                                lineHeight: '1.1'
                             }}
                         >
-                            <div className="flex items-baseline justify-center flex-wrap sm:flex-nowrap" style={{ gap: 'clamp(0.3rem, 0.7vw, 0.6rem)', marginBottom: 'clamp(0.2rem, 0.3em, 0.5rem)' }}>
+                            <div className="flex items-baseline justify-center sm:flex-nowrap" style={{ gap: 'clamp(0.3rem, 0.7vw, 0.6rem)' }}>
                                 <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
                                 <TextRoll
                                     texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                     interval={3000}
                                     className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold"
                                 />
-                                <span style={{ whiteSpace: 'nowrap' }}>für</span>
                             </div>
-                            <div>Ihr Unternehmen</div>
+                            <div className="mt-2">für Ihr Unternehmen</div>
                         </div>
                     </div>
 
