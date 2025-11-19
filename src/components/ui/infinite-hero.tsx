@@ -87,33 +87,33 @@ export default function InfiniteHero() {
             {/* Gradient Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" style={{ zIndex: 1 }} />
 
-            <div className="relative z-10 flex h-svh w-full items-center justify-center px-6 pb-16" style={{ zIndex: 10 }}>
+            <div className="relative z-10 flex h-svh w-full items-center justify-center px-4 sm:px-6 pb-16 pt-20 sm:pt-16" style={{ zIndex: 10 }}>
                 <div className="text-center max-w-4xl mx-auto">
                     <div ref={h1Ref} className="mx-auto max-w-5xl">
                         <div
-                            className="text-[clamp(3.5rem,8vw,6.5rem)] text-white text-center"
+                            className="text-[clamp(2.5rem,8vw,6.5rem)] text-white text-center"
                             style={{
                                 fontWeight: 700,
                                 letterSpacing: '-0.02em',
-                                lineHeight: '0.85'
+                                lineHeight: '1'
                             }}
                         >
-                            <div className="flex items-baseline justify-center" style={{ gap: 'clamp(0.4rem, 0.7vw, 0.6rem)', flexWrap: 'nowrap', marginBottom: '-0.3em' }}>
+                            <div className="flex items-baseline justify-center flex-wrap sm:flex-nowrap" style={{ gap: 'clamp(0.3rem, 0.7vw, 0.6rem)', marginBottom: 'clamp(0.2rem, 0.3em, 0.5rem)' }}>
                                 <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
                                 <TextRoll
                                     texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                     interval={3000}
-                                    className="text-[clamp(3.5rem,8vw,6.5rem)] font-semibold"
+                                    className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold"
                                 />
                                 <span style={{ whiteSpace: 'nowrap' }}>für</span>
                             </div>
-                            <div style={{ marginTop: '-0.45em' }}>Ihr Unternehmen</div>
+                            <div>Ihr Unternehmen</div>
                         </div>
                     </div>
 
                     <p
                         ref={pRef}
-                        className="mx-auto mt-8 max-w-2xl text-lg md:text-xl text-white/80 leading-relaxed"
+                        className="mx-auto mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg md:text-xl text-white/80 leading-relaxed px-2"
                         style={{
                             fontWeight: 400,
                             letterSpacing: '-0.01em'
@@ -125,21 +125,21 @@ export default function InfiniteHero() {
 
                     <div
                         ref={ctaRef}
-                        className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+                        className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
                     >
-                        <a href="#kontakt">
+                        <a href="#kontakt" className="w-full sm:w-auto">
                             <GlassButton
                                 size="lg"
-                                contentClassName="font-semibold tracking-wide"
+                                contentClassName="font-semibold tracking-wide w-full"
                             >
                                 Kostenloses Erstgespräch
                             </GlassButton>
                         </a>
 
-                        <a href="#leistungen">
+                        <a href="#leistungen" className="w-full sm:w-auto">
                             <GlassButton
                                 size="lg"
-                                contentClassName="font-semibold tracking-wide"
+                                contentClassName="font-semibold tracking-wide w-full"
                             >
                                 Mehr erfahren
                             </GlassButton>
@@ -149,26 +149,26 @@ export default function InfiniteHero() {
                     {/* Stats */}
                     <div
                         ref={trustRef}
-                        className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
+                        className="mt-10 sm:mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto px-4"
                     >
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-white mb-2">20+</div>
-                            <div className="text-white/60 text-sm uppercase tracking-wide">Erfolgreiche Projekte</div>
+                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">20+</div>
+                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Erfolgreiche Projekte</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-white mb-2">98%</div>
-                            <div className="text-white/60 text-sm uppercase tracking-wide">Kundenzufriedenheit</div>
+                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">98%</div>
+                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Kundenzufriedenheit</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                            <div className="text-white/60 text-sm uppercase tracking-wide">Support</div>
+                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">24/7</div>
+                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Support</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Trust Widget - Company Logos */}
-            <div className="absolute bottom-12 left-0 right-0 z-20">
+            <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 z-20 px-4">
                 <Logos3
                     heading="Vertraut von vielen Unternehmen"
                 />

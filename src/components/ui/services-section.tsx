@@ -75,24 +75,24 @@ export function ServicesSection() {
   ];
 
   return (
-    <section id="leistungen" className="relative min-h-screen w-full flex items-center justify-center py-20 px-6" style={{ zIndex: 10 }}>
+    <section id="leistungen" className="relative min-h-screen w-full flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6" style={{ zIndex: 10 }}>
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 px-2">
             Unsere{" "}
             <span className="bg-gradient-to-r from-[#80E8FF] via-[#A0F0FF] to-[#80E8FF] bg-clip-text text-transparent">
               Leistungen
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4">
             Von der ersten Idee bis zur erfolgreichen Implementierung -
             wir begleiten Sie auf jedem Schritt Ihrer KI-Transformation
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 place-items-center">
           {services.map((service, index) => (
             <HighlightCard
               key={index}
@@ -104,12 +104,12 @@ export function ServicesSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-20">
-          <p className="text-white/60 text-sm uppercase tracking-wide mb-4">
+        <div className="text-center mt-16 sm:mt-20 px-4">
+          <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wide mb-4">
             Bereit für die Zukunft?
           </p>
-          <a href="#kontakt" className="inline-block">
-            <button className="px-8 py-4 bg-gradient-to-r from-[#80E8FF] to-[#A0F0FF] text-black font-semibold rounded-full hover:shadow-2xl hover:shadow-[#80E8FF]/50 transition-all duration-300 hover:scale-105">
+          <a href="#kontakt" className="inline-block w-full sm:w-auto">
+            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#80E8FF] to-[#A0F0FF] text-black font-semibold rounded-full hover:shadow-2xl hover:shadow-[#80E8FF]/50 transition-all duration-300 hover:scale-105 text-sm sm:text-base">
               Kostenloses Beratungsgespräch vereinbaren
             </button>
           </a>

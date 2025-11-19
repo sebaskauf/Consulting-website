@@ -46,19 +46,19 @@ export function Footer() {
 
   return (
     <footer className="relative z-10 bg-black border-t border-white/10 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <div className="mb-5 sm:mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 Vibe Consulting
               </h3>
-              <p className="text-gray-400 mt-2">
+              <p className="text-gray-400 mt-2 text-sm sm:text-base">
                 KI-Beratung & Automation
               </p>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-md">
+            <p className="text-gray-400 text-sm leading-relaxed mb-5 sm:mb-6 max-w-md">
               Wir helfen Unternehmen dabei, das volle Potenzial von künstlicher Intelligenz zu nutzen - von der Strategie bis zur Implementierung.
             </p>
 
@@ -81,10 +81,10 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-gray-300 uppercase tracking-wider">
+            <h4 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4 text-gray-300 uppercase tracking-wider">
               Unternehmen
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {company.map((link, index) => (
                 <li key={index}>
                   <a
@@ -100,10 +100,10 @@ export function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-gray-300 uppercase tracking-wider">
+            <h4 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4 text-gray-300 uppercase tracking-wider">
               Ressourcen
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {resources.map((link, index) => (
                 <li key={index}>
                   <a
@@ -119,10 +119,10 @@ export function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-gray-300 uppercase tracking-wider">
+            <h4 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4 text-gray-300 uppercase tracking-wider">
               Rechtliches
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2 sm:space-y-3">
               {legal.map((link, index) => (
                 <li key={index}>
                   <a
@@ -138,21 +138,21 @@ export function Footer() {
         </div>
 
         {/* Newsletter Section */}
-        <div className="border-t border-white/10 pt-8 mb-8">
+        <div className="border-t border-white/10 pt-6 sm:pt-8 mb-6 sm:mb-8">
           <div className="max-w-md">
-            <h4 className="text-lg font-semibold mb-2">Newsletter abonnieren</h4>
+            <h4 className="text-base sm:text-lg font-semibold mb-2">Newsletter abonnieren</h4>
             <p className="text-gray-400 text-sm mb-4">
               Bleiben Sie auf dem Laufenden über KI-Trends und Best Practices.
             </p>
-            <form className="flex gap-2">
+            <form className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
                 placeholder="ihre@email.de"
-                className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500 text-sm"
+                className="flex-1 px-3 sm:px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500 text-sm"
               />
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg transition-all duration-300 text-sm font-medium"
+                className="px-5 sm:px-6 py-2.5 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg transition-all duration-300 text-sm font-medium whitespace-nowrap"
               >
                 Anmelden
               </button>
@@ -161,8 +161,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
+        <div className="border-t border-white/10 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
+          <p className="text-gray-400 text-xs sm:text-sm text-center md:text-left">
             © {year} Vibe Consulting. Alle Rechte vorbehalten.
           </p>
           <p className="text-gray-500 text-xs text-center md:text-right">

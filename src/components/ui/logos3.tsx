@@ -75,13 +75,13 @@ const Logos3 = ({
   ],
 }: Logos3Props) => {
   return (
-    <section className="py-8 pointer-events-none">
+    <section className="py-6 sm:py-8 pointer-events-none">
       <div className="flex flex-col items-center text-center mb-2">
-        <h3 className="text-sm font-semibold text-white uppercase tracking-wider">
+        <h3 className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider px-4">
           {heading}
         </h3>
       </div>
-      <div className="pt-4">
+      <div className="pt-3 sm:pt-4">
         <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
           <Carousel
             opts={{ loop: true }}
@@ -91,14 +91,14 @@ const Logos3 = ({
               {logos.map((logo) => (
                 <CarouselItem
                   key={logo.id}
-                  className="flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
+                  className="flex basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/6 justify-center pl-0"
                 >
-                  <div className="mx-10 flex shrink-0 items-center justify-center">
+                  <div className="mx-6 sm:mx-10 flex shrink-0 items-center justify-center">
                     <div>
                       <img
                         src={logo.image}
                         alt={logo.description}
-                        className={logo.className}
+                        className="h-8 sm:h-10 w-auto"
                       />
                     </div>
                   </div>
@@ -106,8 +106,8 @@ const Logos3 = ({
               ))}
             </CarouselContent>
           </Carousel>
-          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-black to-transparent"></div>
-          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black to-transparent"></div>
+          <div className="absolute inset-y-0 left-0 w-8 sm:w-12 bg-gradient-to-r from-black to-transparent"></div>
+          <div className="absolute inset-y-0 right-0 w-8 sm:w-12 bg-gradient-to-l from-black to-transparent"></div>
         </div>
       </div>
     </section>

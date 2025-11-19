@@ -44,34 +44,34 @@ export default function FeaturedSectionStats() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative z-10 w-full max-w-6xl mx-auto text-left py-32 px-6">
-      <div className="px-4">
-        <h3 className="text-lg sm:text-xl lg:text-4xl font-medium text-white mb-4">
+    <section ref={sectionRef} className="relative z-10 w-full max-w-6xl mx-auto text-left py-20 sm:py-32 px-4 sm:px-6">
+      <div className="px-2 sm:px-4">
+        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-white mb-3 sm:mb-4">
           Messbare Erfolge durch strategische KI-Beratung.
         </h3>
-        <p className="text-base sm:text-lg text-white/70 max-w-3xl mb-16">
+        <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-3xl mb-12 sm:mb-16">
           Wir identifizieren die optimalen KI-Anwendungen für Ihre Prozesse - unsere Kunden erleben Zeitersparnisse von bis zu 80% innerhalb der ersten drei Monate.
         </p>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mt-8">
-          <div>
-            <p className="text-3xl font-medium text-white">20+</p>
-            <p className="text-white/60 text-md">Erfolgreich abgeschlossene Projekte</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-6 sm:mt-8">
+          <div className="text-center sm:text-left">
+            <p className="text-2xl sm:text-3xl font-medium text-white">20+</p>
+            <p className="text-white/60 text-sm sm:text-base mt-1">Erfolgreich abgeschlossene Projekte</p>
           </div>
-          <div>
-            <p className="text-3xl font-medium text-white">150+</p>
-            <p className="text-white/60 text-md">Automatisierte Prozesse</p>
+          <div className="text-center sm:text-left">
+            <p className="text-2xl sm:text-3xl font-medium text-white">150+</p>
+            <p className="text-white/60 text-sm sm:text-base mt-1">Automatisierte Prozesse</p>
           </div>
-          <div>
-            <p className="text-3xl font-medium text-white">bis zu 80%</p>
-            <p className="text-white/60 text-md">Zeitersparnis</p>
+          <div className="text-center sm:text-left">
+            <p className="text-2xl sm:text-3xl font-medium text-white">bis zu 80%</p>
+            <p className="text-white/60 text-sm sm:text-base mt-1">Zeitersparnis</p>
           </div>
         </div>
       </div>
 
       {/* Area Chart */}
-      <div className="w-full h-48 mt-8 pointer-events-none">
+      <div className="w-full h-40 sm:h-48 mt-8 sm:mt-12 pointer-events-none px-2">
         {animationKey > 0 && (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} key={animationKey}>

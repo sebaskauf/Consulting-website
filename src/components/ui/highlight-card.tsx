@@ -27,7 +27,7 @@ const Component: FC<ComponentProps> = ({ title, description, icon }) => {
           animation: ping-slow 4s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
       `}</style>
-      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-[350px]">
+      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-full max-w-[350px]">
 
 
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -39,19 +39,19 @@ const Component: FC<ComponentProps> = ({ title, description, icon }) => {
         </div>
 
 
-        <div className="p-8 relative z-10 flex flex-col items-center text-center">
-          <div className="relative mb-6">
+        <div className="p-6 sm:p-8 relative z-10 flex flex-col items-center text-center">
+          <div className="relative mb-5 sm:mb-6">
             <div className="absolute inset-0 rounded-full border-2 border-white/20 animate-ping-slow"></div>
             <div className="absolute inset-0 rounded-full border border-white/10 animate-pulse"></div>
 
-            <div className="p-6 rounded-full backdrop-blur-lg border border-white/20 bg-gradient-to-br from-black/80 to-black/60 shadow-2xl transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 hover:shadow-white/20">
+            <div className="p-4 sm:p-6 rounded-full backdrop-blur-lg border border-white/20 bg-gradient-to-br from-black/80 to-black/60 shadow-2xl transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 hover:shadow-white/20">
               <div className="transform group-hover:rotate-180 transition-transform duration-700">
                 {icon}
               </div>
             </div>
           </div>
 
-          <h3 className="mb-4 text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent animate-pulse transform group-hover:scale-105 transition-transform duration-300">
+          <h3 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent animate-pulse transform group-hover:scale-105 transition-transform duration-300">
             {title}
           </h3>
 
