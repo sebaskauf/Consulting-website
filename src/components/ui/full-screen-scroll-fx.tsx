@@ -879,8 +879,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
+              display: grid;
               grid-template-columns: 100px 1fr;
               grid-template-rows: 1fr;
+              grid-template-areas: "left center";
               gap: 1.5rem;
               padding: 0 1rem;
               align-items: center;
@@ -888,7 +890,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               margin-top: 8vh;
             }
             .fx-left {
-              order: 1;
+              grid-area: left;
               max-height: none;
               min-height: 120px;
               align-items: center;
@@ -896,20 +898,18 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               display: flex;
               position: relative;
               overflow: visible;
-              padding-top: 0;
-              padding-left: 0;
+              padding: 0;
             }
             .fx-right {
               display: none;
             }
             .fx-center {
-              order: 2;
+              grid-area: center;
               padding: 0 0.5rem 0 0;
               min-height: 100px;
               display: flex;
               align-items: center;
               text-align: left;
-              padding-top: 0;
             }
             .fx-featured-title {
               font-size: clamp(1.2rem, 4.5vw, 1.7rem);
