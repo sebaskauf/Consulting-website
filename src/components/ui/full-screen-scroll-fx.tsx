@@ -558,7 +558,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                           <h3 className="fx-featured-title">
                             {isString ? (
                               <>
-                                {tempWordBucket.current = [], s.title.split(/\s+/).filter(Boolean).map((w, i) => (
+                                {(() => { tempWordBucket.current = []; return null; })()}
+                                {s.title.split(/\s+/).filter(Boolean).map((w, i) => (
                                   <span className="fx-word-mask" key={i}>
                                     <span className="fx-word" ref={(el) => {
                                       if (el) {
