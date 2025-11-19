@@ -463,18 +463,32 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
     const handleJump = (i: number) => goTo(i);
     const handleLoadedStagger = () => {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
+
       leftItemRefs.current.forEach((el, i) => {
         gsap.fromTo(
           el,
           { opacity: 0, y: 20 },
-          { opacity: i === index ? 1 : 0.35, y: 0, duration: 0.5, delay: i * 0.06, ease: "power3.out" }
+          {
+            opacity: i === index ? 1 : (isMobile ? 0 : 0.35),
+            y: 0,
+            duration: 0.5,
+            delay: i * 0.06,
+            ease: "power3.out"
+          }
         );
       });
       rightItemRefs.current.forEach((el, i) => {
         gsap.fromTo(
           el,
           { opacity: 0, y: 20 },
-          { opacity: i === index ? 1 : 0.35, y: 0, duration: 0.5, delay: 0.2 + i * 0.06, ease: "power3.out" }
+          {
+            opacity: i === index ? 1 : 0.35,
+            y: 0,
+            duration: 0.5,
+            delay: 0.2 + i * 0.06,
+            ease: "power3.out"
+          }
         );
       });
     };
