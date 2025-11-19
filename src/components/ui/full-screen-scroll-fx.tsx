@@ -644,14 +644,13 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                 </div>
 
                 <div className="fx-footer">
-                  {/* Mobile: Show title and description together */}
+                  {/* Mobile: Show description only */}
                   <div className="sm:hidden">
                     {sections.map((s, i) => (
                       <div
                         key={`footer-mobile-${s.id ?? i}`}
                         className={`${i === index ? "block" : "hidden"}`}
                       >
-                        <div className="fx-footer-title">{s.title}</div>
                         <div className="fx-footer-description active">{s.footer}</div>
                       </div>
                     ))}
@@ -887,7 +886,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               padding: 0 1rem;
               align-items: center;
               flex: 0 0 auto;
-              margin-top: 8vh;
+              margin-top: -5vh;
             }
             .fx-left {
               grid-area: left;
@@ -910,6 +909,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               display: flex;
               align-items: center;
               text-align: left;
+              padding-top: 200px;
             }
             .fx-featured-title {
               font-size: clamp(1.2rem, 4.5vw, 1.7rem);
