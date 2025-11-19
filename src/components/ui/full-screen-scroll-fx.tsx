@@ -905,7 +905,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             }
             .fx-center {
               grid-area: center;
-              padding: 0 0.5rem 0 3rem;
+              padding: 0 0.5rem 0 15rem;
               min-height: 100px;
               display: flex;
               align-items: center;
