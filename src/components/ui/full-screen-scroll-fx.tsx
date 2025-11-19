@@ -936,7 +936,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               margin: 0;
               font-weight: 900;
               left: 50%;
-              top: 10%;
+              top: 0;
               transform: translateX(-50%);
             }
             .fx-header {
