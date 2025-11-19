@@ -918,9 +918,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               transform: translate(-50%, -50%);
             }
             .fx-header {
-              padding: 1vh 1rem 0;
+              padding: 8vh 1rem 1vh;
               font-size: clamp(1.25rem, 4vw, 1.5rem);
-              margin-bottom: 0;
             }
             .fx-footer {
               padding: 1vh 1rem 3vh;
