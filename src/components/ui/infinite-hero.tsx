@@ -87,7 +87,7 @@ export default function InfiniteHero() {
             {/* Gradient Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" style={{ zIndex: 1 }} />
 
-            <div className="relative z-10 flex h-svh w-full items-center justify-center px-4 sm:px-6 pb-16 pt-20 sm:pt-16" style={{ zIndex: 10 }}>
+            <div className="relative z-10 flex h-svh w-full items-center justify-center px-4 sm:px-6 pb-20 sm:pb-16 pt-20 sm:pt-12" style={{ zIndex: 10 }}>
                 <div className="text-center max-w-4xl mx-auto">
                     <div ref={h1Ref} className="mx-auto max-w-5xl">
                         <div
@@ -202,7 +202,7 @@ export default function InfiniteHero() {
             </div>
 
             {/* Trust Widget - Company Logos */}
-            <div className="absolute bottom-2 sm:bottom-12 left-0 right-0 z-20 px-4">
+            <div className="absolute bottom-2 sm:bottom-8 left-0 right-0 z-20 px-4">
                 <Logos3
                     heading="Vertraut von vielen Unternehmen"
                 />

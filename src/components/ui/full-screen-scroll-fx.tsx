@@ -600,15 +600,32 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                 </div>
 
                 <div className="fx-footer">
-                  {sections.map((s, i) => (
-                    <div
-                      key={`footer-${s.id ?? i}`}
-                      className={`fx-footer-description ${i === index ? "active" : ""}`}
-                    >
-                      {s.footer}
-                    </div>
-                  ))}
-                  {footer && <div className="fx-footer-title">{footer}</div>}
+                  {/* Mobile: Show title and description together */}
+                  <div className="sm:hidden">
+                    {sections.map((s, i) => (
+                      <div
+                        key={`footer-mobile-${s.id ?? i}`}
+                        className={`${i === index ? "block" : "hidden"}`}
+                      >
+                        <div className="fx-footer-title">{s.title}</div>
+                        <div className="fx-footer-description active">{s.footer}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Desktop: Original layout */}
+                  <div className="hidden sm:block">
+                    {sections.map((s, i) => (
+                      <div
+                        key={`footer-${s.id ?? i}`}
+                        className={`fx-footer-description ${i === index ? "active" : ""}`}
+                      >
+                        {s.footer}
+                      </div>
+                    ))}
+                    {footer && <div className="fx-footer-title">{footer}</div>}
+                  </div>
+
                   {showProgress && (
                     <div className="fx-progress">
                       <div className="fx-progress-numbers">
@@ -818,33 +835,35 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: 1fr;
-              grid-template-rows: auto 1fr auto;
-              gap: 1rem;
-              padding: 2rem 0;
-            }
-            .fx-left, .fx-right {
-              max-height: none;
-              min-height: auto;
+              grid-template-columns: auto 1fr;
+              grid-template-rows: 1fr;
+              gap: 1.5rem;
+              padding: 2rem 1rem;
               align-items: center;
-              overflow: visible;
             }
             .fx-left {
               order: 1;
+              max-height: none;
+              min-height: auto;
+              align-items: center;
+              justify-content: center;
+              display: flex;
+            }
+            .fx-right {
+              display: none;
             }
             .fx-center {
               order: 2;
-              padding: 2rem 1rem;
-              min-height: 200px;
+              padding: 0;
+              min-height: auto;
               display: flex;
               align-items: center;
-            }
-            .fx-right {
-              order: 3;
+              text-align: left;
             }
             .fx-featured-title {
-              font-size: clamp(1.5rem, 5vw, 2rem);
+              font-size: clamp(1.25rem, 4.5vw, 1.75rem);
               line-height: 1.3;
+              text-align: left;
             }
             .fx-track {
               transform: none !important;
@@ -852,23 +871,33 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              gap: 0.5rem;
+              gap: 0;
+            }
+            .fx-item {
+              font-size: clamp(3rem, 12vw, 4rem);
+              margin: 0;
+              font-weight: 900;
             }
             .fx-header {
-              padding: 6vh 1rem 3vh;
+              padding: 4vh 1rem 2vh;
               font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
             .fx-footer {
-              padding: 3vh 1rem 5vh;
+              padding: 2vh 1rem 4vh;
             }
             .fx-footer-description {
-              font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+              font-size: clamp(0.85rem, 3vw, 1rem);
               max-width: 95%;
               line-height: 1.5;
+              position: relative;
+              margin-bottom: 1rem;
             }
-            .fx-item {
-              font-size: clamp(1.25rem, 3.5vw, 1.75rem);
-              margin: 0.25rem 0;
+            .fx-footer-title {
+              font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+              margin-bottom: 0.5rem;
             }
           }
         `}</style>

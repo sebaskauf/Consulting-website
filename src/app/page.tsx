@@ -141,7 +141,8 @@ export default function Home() {
           sections={consultingProcessSections}
           header={
             <div className="relative inline-block">
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
+              {/* Desktop Header */}
+              <h2 className="hidden sm:block text-3xl md:text-4xl font-semibold tracking-tight">
                 Dein Weg zur{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">KI-Transformation</span>
@@ -165,6 +166,24 @@ export default function Home() {
                   />
                 </span>
               </h2>
+
+              {/* Mobile Header - 2 lines */}
+              <h2 className="sm:hidden text-2xl font-semibold tracking-tight text-center">
+                <div>DEIN WEG ZUR KI-</div>
+                <div className="relative inline-block mt-1">
+                  <span className="relative z-10">TRANSFORMATION</span>
+                  {/* Animated underline - matches current phase color */}
+                  <span
+                    className="absolute bottom-0 left-0 w-full h-[2px]"
+                    style={{
+                      background: beamsColor,
+                      animation: "slideIn 1s ease-out forwards",
+                      transformOrigin: "left",
+                    }}
+                  />
+                </div>
+              </h2>
+
               <style jsx>{`
                 @keyframes slideIn {
                   from {
