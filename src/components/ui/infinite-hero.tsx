@@ -95,19 +95,18 @@ export default function InfiniteHero() {
                             style={{
                                 fontWeight: 700,
                                 letterSpacing: '-0.02em',
-                                lineHeight: '1.1'
+                                lineHeight: '1.15'
                             }}
                         >
                             {/* Mobile: 2 lines, Desktop: 3 lines */}
-                            <div className="sm:hidden flex items-baseline justify-center" style={{ gap: 'clamp(0.3rem, 0.7vw, 0.6rem)' }}>
-                                <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
-                                <TextRoll
+                            <div className="sm:hidden">
+                                <div className="whitespace-nowrap">KI-<TextRoll
                                     texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                     interval={3000}
-                                    className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold"
-                                />
+                                    className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold inline-block"
+                                /></div>
+                                <div className="mt-1">für Ihr Unternehmen</div>
                             </div>
-                            <div className="sm:hidden mt-2">für Ihr Unternehmen</div>
 
                             {/* Desktop: Original 3-line layout */}
                             <div className="hidden sm:block">
@@ -183,7 +182,7 @@ export default function InfiniteHero() {
                     {/* Stats */}
                     <div
                         ref={trustRef}
-                        className="mt-8 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto px-4"
+                        className="mt-6 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto px-4"
                     >
                         <div className="text-center">
                             <div className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">20+</div>
@@ -202,7 +201,7 @@ export default function InfiniteHero() {
             </div>
 
             {/* Trust Widget - Company Logos */}
-            <div className="absolute bottom-16 sm:bottom-4 left-0 right-0 z-20 px-4">
+            <div className="absolute bottom-2 sm:bottom-4 left-0 right-0 z-20 px-4">
                 <Logos3
                     heading="Vertraut von vielen Unternehmen"
                 />

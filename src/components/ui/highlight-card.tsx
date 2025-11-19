@@ -27,7 +27,7 @@ const Component: FC<ComponentProps> = ({ title, description, icon }) => {
           animation: ping-slow 4s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
       `}</style>
-      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-full max-w-[220px] sm:max-w-[360px] h-full">
+      <Card className="text-white rounded-2xl border border-white/10 bg-gradient-to-br from-[#010101] via-[#090909] to-[#010101] shadow-2xl relative backdrop-blur-xl overflow-hidden hover:border-white/25 hover:shadow-white/5 hover:shadow-3xl w-full max-w-full sm:max-w-[220px] md:max-w-[360px] h-full">
 
 
         <div className="absolute inset-0 z-0 overflow-hidden">

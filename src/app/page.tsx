@@ -86,7 +86,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black relative">
+    <main className="min-h-screen bg-black relative overflow-x-hidden">
       {/* Navigation Bar */}
       <Navbar />
 

@@ -879,43 +879,45 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: 150px 1fr;
+              grid-template-columns: 100px 1fr;
               grid-template-rows: 1fr;
-              gap: 2.5rem;
-              padding: 0 1rem;
-              align-items: center;
+              gap: 1.5rem;
+              padding: 0 0.75rem;
+              align-items: flex-start;
               flex: 0 0 auto;
               margin-top: 8vh;
             }
             .fx-left {
               order: 1;
               max-height: none;
-              min-height: 120px;
-              align-items: center;
+              min-height: 100px;
+              align-items: flex-start;
               justify-content: flex-start;
               display: flex;
               position: relative;
               overflow: visible;
               padding-top: 0;
-              padding-left: 0.5rem;
+              padding-left: 0;
             }
             .fx-right {
               display: none;
             }
             .fx-center {
               order: 2;
-              padding: 0 0 0 1rem;
+              padding: 0 0.5rem 0 0;
               min-height: 100px;
               display: flex;
               align-items: flex-start;
               text-align: left;
-              padding-top: 50px;
+              padding-top: 40px;
             }
             .fx-featured-title {
-              font-size: clamp(1.4rem, 5vw, 1.9rem);
+              font-size: clamp(1.2rem, 4.5vw, 1.7rem);
               line-height: 1.3;
               text-align: left;
               width: 100%;
+              word-break: break-word;
+              overflow-wrap: break-word;
             }
             .fx-track {
               position: relative;
@@ -924,17 +926,17 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               min-height: 100px;
               display: flex;
               align-items: flex-start;
-              justify-content: center;
+              justify-content: flex-start;
               overflow: visible;
-              padding-top: 10px;
+              padding-top: 5px;
             }
             .fx-item {
               position: absolute;
-              font-size: clamp(3.5rem, 15vw, 5rem);
+              font-size: clamp(3rem, 12vw, 4rem);
               margin: 0;
               font-weight: 900;
-              left: 25%;
-              top: 10px;
+              left: 50%;
+              top: 5px;
               transform: translateX(-50%);
             }
             .fx-header {
