@@ -556,10 +556,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                       return (
                         <div key={`C-${s.id ?? sIdx}`} className={`fx-featured ${sIdx === index ? "active" : ""}`}>
                           <h3 className="fx-featured-title">
-                            {isString && s.title ? (
+                            {isString && typeof s.title === 'string' ? (
                               <>
                                 {(() => { tempWordBucket.current = []; return null; })()}
-                                {s.title.split(/\s+/).filter(Boolean).map((w, i) => (
+                                {(s.title as string).split(/\s+/).filter(Boolean).map((w, i) => (
                                   <span className="fx-word-mask" key={i}>
                                     <span className="fx-word" ref={(el) => {
                                       if (el) {
@@ -569,7 +569,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
                                         }
                                       }
                                     }}>{w}</span>
-                                    {i < s.title.split(/\s+/).filter(Boolean).length - 1 ? " " : null}
+                                    {i < (s.title as string).split(/\s+/).filter(Boolean).length - 1 ? " " : null}
                                   </span>
                                 ))}
                               </>
