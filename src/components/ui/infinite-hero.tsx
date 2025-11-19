@@ -91,7 +91,7 @@ export default function InfiniteHero() {
                 <div className="text-center max-w-4xl mx-auto -mt-12 sm:-mt-6">
                     <div ref={h1Ref} className="mx-auto max-w-5xl">
                         <div
-                            className="text-[clamp(2.5rem,8vw,6.5rem)] text-white text-center"
+                            className="text-white text-center"
                             style={{
                                 fontWeight: 700,
                                 letterSpacing: '-0.02em',
@@ -99,13 +99,13 @@ export default function InfiniteHero() {
                             }}
                         >
                             {/* Mobile: 2 lines, Desktop: 3 lines */}
-                            <div className="sm:hidden">
+                            <div className="sm:hidden text-[clamp(1.8rem,7vw,5rem)]">
                                 <div className="flex items-baseline justify-center flex-nowrap" style={{ gap: 'clamp(0.2rem, 0.4vw, 0.4rem)' }}>
                                     <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
                                     <TextRoll
                                         texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                         interval={3000}
-                                        className="text-[clamp(1.8rem,7vw,6.5rem)] font-semibold whitespace-nowrap"
+                                        className="font-semibold whitespace-nowrap"
                                     />
                                     <span style={{ whiteSpace: 'nowrap' }}>für</span>
                                 </div>
@@ -113,13 +113,13 @@ export default function InfiniteHero() {
                             </div>
 
                             {/* Desktop: Original 3-line layout */}
-                            <div className="hidden sm:block">
+                            <div className="hidden sm:block text-[clamp(3.5rem,8vw,6.5rem)]">
                                 <div className="flex items-baseline justify-center" style={{ gap: 'clamp(0.4rem, 0.7vw, 0.6rem)', flexWrap: 'nowrap', marginBottom: '-0.3em' }}>
                                     <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
                                     <TextRoll
                                         texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                         interval={3000}
-                                        className="text-[clamp(3.5rem,8vw,6.5rem)] font-semibold"
+                                        className="font-semibold"
                                     />
                                     <span style={{ whiteSpace: 'nowrap' }}>für</span>
                                 </div>
