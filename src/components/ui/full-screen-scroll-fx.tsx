@@ -868,7 +868,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               grid-template-columns: 150px 1fr;
               grid-template-rows: 1fr;
               gap: 2.5rem;
-              padding: 2rem 1rem;
+              padding: 1rem 1rem;
               align-items: center;
             }
             .fx-left {
@@ -918,11 +918,11 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               transform: translate(-50%, -50%);
             }
             .fx-header {
-              padding: 4vh 1rem 2vh;
+              padding: 2vh 1rem 0.5vh;
               font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
             .fx-footer {
-              padding: 2vh 1rem 4vh;
+              padding: 1vh 1rem 3vh;
             }
             .fx-footer-description {
               font-size: clamp(0.85rem, 3vw, 1rem);
