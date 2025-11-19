@@ -179,6 +179,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
     };
 
     const measureAndCenterLists = (toIndex = index, animate = true) => {
+      // Skip centering on mobile - numbers are absolute positioned
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
+      if (isMobile) return;
+
       const centerTrack = (
         container: HTMLDivElement | null,
         items: HTMLDivElement[],
@@ -227,6 +231,17 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
       gsap.set(bgRefs.current, { opacity: 0, scale: 1.04, yPercent: 0 });
       if (bgRefs.current[0]) gsap.set(bgRefs.current[0], { opacity: 1, scale: 1 });
+
+      // Set initial state for numbers on mobile
+      const isMobile = window.innerWidth <= 900;
+      if (isMobile) {
+        leftItemRefs.current.forEach((el, i) => {
+          gsap.set(el, {
+            opacity: i === index ? 1 : 0,
+            scale: 1,
+          });
+        });
+      }
 
       // Wait for all word refs to be collected
       requestAnimationFrame(() => {
@@ -850,16 +865,16 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: 1fr;
-              grid-template-rows: auto 1fr;
-              gap: 2rem;
+              grid-template-columns: 120px 1fr;
+              grid-template-rows: 1fr;
+              gap: 1.5rem;
               padding: 2rem 1rem;
               align-items: center;
             }
             .fx-left {
               order: 1;
-              max-height: 150px;
-              min-height: 100px;
+              max-height: none;
+              min-height: 120px;
               align-items: center;
               justify-content: center;
               display: flex;
@@ -874,18 +889,19 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               min-height: auto;
               display: flex;
               align-items: center;
-              text-align: center;
+              text-align: left;
             }
             .fx-featured-title {
-              font-size: clamp(1.5rem, 5vw, 2rem);
+              font-size: clamp(1.4rem, 5vw, 1.9rem);
               line-height: 1.3;
-              text-align: center;
+              text-align: left;
               width: 100%;
             }
             .fx-track {
               position: relative;
               width: 100%;
-              height: 100px;
+              height: 100%;
+              min-height: 100px;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -895,13 +911,9 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               font-size: clamp(3.5rem, 15vw, 5rem);
               margin: 0;
               font-weight: 900;
-              opacity: 0.35;
               left: 50%;
               top: 50%;
               transform: translate(-50%, -50%);
-            }
-            .fx-item.active {
-              opacity: 1;
             }
             .fx-header {
               padding: 4vh 1rem 2vh;
