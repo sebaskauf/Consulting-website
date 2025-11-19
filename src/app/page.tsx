@@ -27,28 +27,48 @@ const consultingProcessSections = [
   {
     id: "erstgespraech",
     leftLabel: <PhaseNumber number={1} color={phaseNumberColors[0]} />,
-    title: "Erstgespräch & Analyse",
+    title: (
+      <>
+        <span className="hidden sm:inline">Erstgespräch & Analyse</span>
+        <span className="sm:hidden">Erstgespräch<br/>& Analyse</span>
+      </>
+    ),
     rightLabel: "Kennenlernen",
     footer: "Wir lernen Ihr Unternehmen kennen und analysieren Ihre Prozesse und Herausforderungen",
   },
   {
     id: "workshop",
     leftLabel: <PhaseNumber number={2} color={phaseNumberColors[1]} />,
-    title: "Workshop & Identifikation",
+    title: (
+      <>
+        <span className="hidden sm:inline">Workshop & Identifikation</span>
+        <span className="sm:hidden">Workshop<br/>& Identifikation</span>
+      </>
+    ),
     rightLabel: "Strategie",
     footer: "Gemeinsam identifizieren wir die besten Automationsmöglichkeiten für Ihr Business",
   },
   {
     id: "entwicklung",
     leftLabel: <PhaseNumber number={3} color={phaseNumberColors[2]} />,
-    title: "Entwicklung & Updates",
+    title: (
+      <>
+        <span className="hidden sm:inline">Entwicklung & Updates</span>
+        <span className="sm:hidden">Entwicklung<br/>& Updates</span>
+      </>
+    ),
     rightLabel: "Umsetzung",
     footer: "Transparente Entwicklung mit regelmäßigen Updates zum aktuellen Stand",
   },
   {
     id: "implementierung",
     leftLabel: <PhaseNumber number={4} color={phaseNumberColors[3]} />,
-    title: "Implementierung & Go-Live",
+    title: (
+      <>
+        <span className="hidden sm:inline">Implementierung & Go-Live</span>
+        <span className="sm:hidden">Implementierung<br/>& Go-Live</span>
+      </>
+    ),
     rightLabel: "Launch",
     footer: "Erfolgreiche Integration in Ihre bestehenden Systeme und Go-Live",
   },
