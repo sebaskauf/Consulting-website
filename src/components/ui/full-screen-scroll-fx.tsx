@@ -871,7 +871,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               padding: 0 1rem;
               align-items: center;
               flex: 0 0 auto;
-              margin-top: 8vh;
+              margin-top: 24vh;
             }
             .fx-left {
               order: 1;
