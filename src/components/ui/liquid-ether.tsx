@@ -695,6 +695,10 @@ export default function LiquidEther({
     }
 
     class Viscous extends ShaderPass {
+      _viscous: number = 30;
+      _iterations: number = 32;
+      _dt: number = 0.014;
+
       constructor(simProps: any) {
         super({
           material: {
@@ -716,10 +720,16 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ viscous, iterations, dt }: any) {
+      setParams({ viscous, iterations, dt }: any) {
+        this._viscous = viscous;
+        this._iterations = iterations;
+        this._dt = dt;
+      }
+
+      update() {
         let fbo_in, fbo_out;
-        this.uniforms.v.value = viscous;
-        for (let i = 0; i < iterations; i++) {
+        this.uniforms.v.value = this._viscous;
+        for (let i = 0; i < this._iterations; i++) {
           if (i % 2 === 0) {
             fbo_in = this.props.output0;
             fbo_out = this.props.output1;
@@ -729,7 +739,7 @@ export default function LiquidEther({
           }
           this.uniforms.velocity_new.value = fbo_in.texture;
           this.props.output = fbo_out;
-          this.uniforms.dt.value = dt;
+          this.uniforms.dt.value = this._dt;
           super.update();
         }
         return fbo_out;
@@ -737,6 +747,8 @@ export default function LiquidEther({
     }
 
     class Divergence extends ShaderPass {
+      _vel: any = null;
+
       constructor(simProps: any) {
         super({
           material: {
@@ -754,13 +766,21 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ vel }: any) {
-        this.uniforms.velocity.value = vel.texture;
+      setParams({ vel }: any) {
+        this._vel = vel;
+      }
+
+      update() {
+        if (this._vel) {
+          this.uniforms.velocity.value = this._vel.texture;
+        }
         super.update();
       }
     }
 
     class Poisson extends ShaderPass {
+      _iterations: number = 32;
+
       constructor(simProps: any) {
         super({
           material: {
@@ -780,9 +800,13 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ iterations }: any) {
+      setParams({ iterations }: any) {
+        this._iterations = iterations;
+      }
+
+      update() {
         let p_in, p_out;
-        for (let i = 0; i < iterations; i++) {
+        for (let i = 0; i < this._iterations; i++) {
           if (i % 2 === 0) {
             p_in = this.props.output0;
             p_out = this.props.output1;
@@ -799,6 +823,9 @@ export default function LiquidEther({
     }
 
     class Pressure extends ShaderPass {
+      _vel: any = null;
+      _pressure: any = null;
+
       constructor(simProps: any) {
         super({
           material: {
@@ -817,9 +844,18 @@ export default function LiquidEther({
         this.init();
       }
 
-      update({ vel, pressure }: any) {
-        this.uniforms.velocity.value = vel.texture;
-        this.uniforms.pressure.value = pressure.texture;
+      setParams({ vel, pressure }: any) {
+        this._vel = vel;
+        this._pressure = pressure;
+      }
+
+      update() {
+        if (this._vel) {
+          this.uniforms.velocity.value = this._vel.texture;
+        }
+        if (this._pressure) {
+          this.uniforms.pressure.value = this._pressure.texture;
+        }
         super.update();
       }
     }
@@ -1001,23 +1037,27 @@ export default function LiquidEther({
         }
         let vel = this.fbos.vel_1;
         if (this.options.isViscous && this.viscous) {
-          vel = this.viscous.update({
+          this.viscous.setParams({
             viscous: this.options.viscous,
             iterations: this.options.iterations_viscous,
             dt: this.options.dt
           });
+          vel = this.viscous.update();
         }
         if (this.divergence) {
-          this.divergence.update({ vel });
+          this.divergence.setParams({ vel });
+          this.divergence.update();
         }
         let pressure = null;
         if (this.poisson) {
-          pressure = this.poisson.update({
+          this.poisson.setParams({
             iterations: this.options.iterations_poisson
           });
+          pressure = this.poisson.update();
         }
         if (this.pressure && pressure) {
-          this.pressure.update({ vel, pressure });
+          this.pressure.setParams({ vel, pressure });
+          this.pressure.update();
         }
       }
     }
