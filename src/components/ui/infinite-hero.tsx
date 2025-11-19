@@ -124,21 +124,21 @@ export default function InfiniteHero() {
 
                     <div
                         ref={ctaRef}
-                        className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
+                        className="mt-8 sm:mt-10 flex flex-row items-center justify-center gap-2 sm:gap-4 px-4"
                     >
-                        <a href="#kontakt" className="w-full sm:w-auto">
+                        <a href="#kontakt" className="flex-1 sm:flex-initial">
                             <GlassButton
-                                size="lg"
-                                contentClassName="font-semibold tracking-wide w-full"
+                                size="sm"
+                                contentClassName="font-semibold tracking-wide text-xs sm:text-sm"
                             >
                                 Kostenloses Erstgespräch
                             </GlassButton>
                         </a>
 
-                        <a href="#leistungen" className="w-full sm:w-auto">
+                        <a href="#leistungen" className="flex-1 sm:flex-initial">
                             <GlassButton
-                                size="lg"
-                                contentClassName="font-semibold tracking-wide w-full"
+                                size="sm"
+                                contentClassName="font-semibold tracking-wide text-xs sm:text-sm"
                             >
                                 Mehr erfahren
                             </GlassButton>
@@ -148,26 +148,26 @@ export default function InfiniteHero() {
                     {/* Stats */}
                     <div
                         ref={trustRef}
-                        className="mt-10 sm:mt-12 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto px-4"
+                        className="mt-8 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto px-4"
                     >
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">20+</div>
-                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Erfolgreiche Projekte</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1">20+</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-wide leading-tight">Erfolgreiche Projekte</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">98%</div>
-                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Kundenzufriedenheit</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1">98%</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-wide leading-tight">Kundenzufriedenheit</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">24/7</div>
-                            <div className="text-white/60 text-xs sm:text-sm uppercase tracking-wide">Support</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1">24/7</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-wide leading-tight">Support</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Trust Widget - Company Logos */}
-            <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 z-20 px-4">
+            <div className="absolute bottom-2 sm:bottom-8 left-0 right-0 z-20 px-4">
                 <Logos3
                     heading="Vertraut von vielen Unternehmen"
                 />

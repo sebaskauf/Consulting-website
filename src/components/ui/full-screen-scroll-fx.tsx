@@ -819,25 +819,32 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
           @media (max-width: 900px) {
             .fx-content {
               grid-template-columns: 1fr;
-              grid-template-rows: minmax(100px, auto) 1fr minmax(100px, auto);
-              gap: 0.5rem;
-              padding: 1rem 0;
+              grid-template-rows: auto 1fr auto;
+              gap: 1rem;
+              padding: 2rem 0;
             }
             .fx-left, .fx-right {
-              max-height: 20vh;
-              min-height: 100px;
+              max-height: none;
+              min-height: auto;
               align-items: center;
               overflow: visible;
             }
+            .fx-left {
+              order: 1;
+            }
             .fx-center {
-              padding: 0 0.5rem;
-              min-height: 150px;
+              order: 2;
+              padding: 2rem 1rem;
+              min-height: 200px;
               display: flex;
               align-items: center;
             }
+            .fx-right {
+              order: 3;
+            }
             .fx-featured-title {
-              font-size: clamp(1.75rem, 5vw, 2.5rem);
-              line-height: 1.2;
+              font-size: clamp(1.5rem, 5vw, 2rem);
+              line-height: 1.3;
             }
             .fx-track {
               transform: none !important;
@@ -845,16 +852,23 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
               flex-direction: column;
               align-items: center;
               justify-content: center;
+              gap: 0.5rem;
             }
             .fx-header {
-              padding: 4vh 0 2vh;
+              padding: 6vh 1rem 3vh;
+              font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
             .fx-footer {
-              padding: 2vh 0 3vh;
+              padding: 3vh 1rem 5vh;
             }
             .fx-footer-description {
-              font-size: clamp(0.85rem, 3vw, 1rem);
-              max-width: 90%;
+              font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+              max-width: 95%;
+              line-height: 1.5;
+            }
+            .fx-item {
+              font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+              margin: 0.25rem 0;
             }
           }
         `}</style>
