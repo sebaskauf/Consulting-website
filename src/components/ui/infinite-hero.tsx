@@ -100,16 +100,16 @@ export default function InfiniteHero() {
                         >
                             {/* Mobile: 2 lines, Desktop: 3 lines */}
                             <div className="sm:hidden">
-                                <div className="flex items-baseline justify-center" style={{ gap: 'clamp(0.3rem, 0.5vw, 0.5rem)' }}>
-                                    <span>KI-</span>
+                                <div className="flex items-baseline justify-center flex-nowrap" style={{ gap: 'clamp(0.2rem, 0.4vw, 0.4rem)' }}>
+                                    <span style={{ whiteSpace: 'nowrap' }}>KI-</span>
                                     <TextRoll
                                         texts={["Beratung", "Lösungen", "Automation", "Entwicklung"]}
                                         interval={3000}
-                                        className="text-[clamp(2.5rem,8vw,6.5rem)] font-semibold"
+                                        className="text-[clamp(1.8rem,7vw,6.5rem)] font-semibold whitespace-nowrap"
                                     />
-                                    <span>für</span>
+                                    <span style={{ whiteSpace: 'nowrap' }}>für</span>
                                 </div>
-                                <div className="mt-1">Ihr Unternehmen</div>
+                                <div className="mt-1 whitespace-nowrap">Ihr Unternehmen</div>
                             </div>
 
                             {/* Desktop: Original 3-line layout */}
