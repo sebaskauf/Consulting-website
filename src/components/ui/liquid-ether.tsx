@@ -638,14 +638,16 @@ export default function LiquidEther({
 
     class ExternalForce extends ShaderPass {
       mouse: THREE.Mesh | null = null;
+      _props: any = null;
 
       constructor(simProps: any) {
         super({ output: simProps.dst });
-        this.init(simProps);
+        this._props = null;
+        this.init();
+        this.initMouse(simProps);
       }
 
-      init(simProps: any) {
-        super.init();
+      initMouse(simProps: any) {
         const mouseG = new THREE.PlaneGeometry(1, 1);
         const mouseM = new THREE.RawShaderMaterial({
           vertexShader: mouse_vert,
@@ -663,7 +665,13 @@ export default function LiquidEther({
         if (this.scene) this.scene.add(this.mouse);
       }
 
-      update(props: any) {
+      setProps(props: any) {
+        this._props = props;
+      }
+
+      update() {
+        if (!this._props) return;
+        const props = this._props;
         const forceX = (Mouse.diff.x / 2) * props.mouse_force;
         const forceY = (Mouse.diff.y / 2) * props.mouse_force;
         const cursorSizeX = props.cursor_size * props.cellScale.x;
@@ -984,11 +992,12 @@ export default function LiquidEther({
         }
 
         if (this.externalForce) {
-          this.externalForce.update({
+          this.externalForce.setProps({
             cursor_size: this.options.cursor_size,
             mouse_force: this.options.mouse_force,
             cellScale: this.cellScale
           });
+          this.externalForce.update();
         }
         let vel = this.fbos.vel_1;
         if (this.options.isViscous && this.viscous) {
