@@ -878,110 +878,87 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              display: block;
-              position: relative;
-              padding: 0;
+              display: grid;
+              grid-template-columns: 70px 1fr;
+              grid-template-rows: 1fr;
+              grid-template-areas: "left center";
+              gap: 1rem;
+              padding: 0 0.5rem;
+              align-items: center;
               flex: 0 0 auto;
               margin-top: -5vh;
-              min-height: 200px;
             }
             .fx-left {
-              position: absolute;
-              left: 1rem;
-              top: 50%;
-              transform: translateY(-50%);
+              grid-area: left;
               max-height: none;
-              min-height: auto;
+              min-height: 100px;
               align-items: center;
               justify-content: center;
               display: flex;
+              position: relative;
               overflow: visible;
               padding: 0;
-              z-index: 10;
             }
             .fx-right {
               display: none;
             }
             .fx-center {
-              padding: 0 1rem 0 6rem;
+              grid-area: center;
+              padding: 0 0.5rem 0 0;
               min-height: 100px;
               display: flex;
-              align-items: flex-start;
+              align-items: center;
               text-align: left;
-              padding-top: 0;
+              padding-top: 200px;
             }
             .fx-featured-title {
-              font-size: clamp(0.85rem, 3.5vw, 1.3rem);
-              line-height: 1.3;
+              font-size: clamp(0.9rem, 3.8vw, 1.4rem);
+              line-height: 1.25;
               text-align: left;
               width: 100%;
               max-width: 100%;
               word-wrap: break-word;
-              overflow-wrap: break-word;
             }
             .fx-track {
               position: relative;
               width: 100%;
               height: 100%;
-              min-height: 80px;
+              min-height: 100px;
               display: flex;
               align-items: center;
               justify-content: center;
               overflow: visible;
             }
             .fx-item {
-              position: relative;
-              font-size: clamp(2rem, 9vw, 3.2rem);
+              position: absolute;
+              font-size: clamp(2.2rem, 10vw, 3.5rem);
               margin: 0;
               font-weight: 900;
-              left: auto;
-              top: auto;
-              transform: none;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
             }
             .fx-header {
               padding: 8vh 1rem 0;
-              font-size: clamp(1.15rem, 3.8vw, 1.4rem);
+              font-size: clamp(1.25rem, 4vw, 1.5rem);
             }
             .fx-footer {
               padding: 1vh 1rem 3vh;
-              margin-top: 30vh;
+              margin-top: 24vh;
             }
             .fx-footer-description {
-              font-size: clamp(0.8rem, 2.8vw, 0.95rem);
-              max-width: 90%;
+              font-size: clamp(0.85rem, 3vw, 1rem);
+              max-width: 95%;
               line-height: 1.5;
               position: relative;
               margin-bottom: 1rem;
-              padding: 0 0.5rem;
             }
             .fx-footer-title {
-              font-size: clamp(0.85rem, 3.2vw, 1rem);
+              font-size: clamp(0.9rem, 3.5vw, 1.1rem);
               font-weight: 700;
               text-transform: uppercase;
               letter-spacing: 0.05em;
               margin-bottom: 0.5rem;
-            }
-          }
-
-          @media (min-width: 600px) and (max-width: 900px) {
-            .fx-content {
-              min-height: 180px;
-            }
-            .fx-center {
-              padding: 0 2rem 0 7rem;
-            }
-            .fx-featured-title {
-              font-size: clamp(1rem, 3.2vw, 1.4rem);
-            }
-            .fx-item {
-              font-size: clamp(2.5rem, 8vw, 3.5rem);
-            }
-            .fx-footer {
-              margin-top: 25vh;
-            }
-            .fx-footer-description {
-              font-size: clamp(0.9rem, 2.5vw, 1rem);
-              max-width: 85%;
             }
           }
         `}</style>
