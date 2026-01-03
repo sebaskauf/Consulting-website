@@ -144,7 +144,7 @@ export default function InfiniteHero() {
                         ref={ctaRef}
                         className="mt-8 sm:mt-10 flex flex-row items-center justify-center gap-2 sm:gap-4 px-4"
                     >
-                        <a href="#kontakt" className="flex-1 sm:flex-initial">
+                        <a href="/kontakt" className="flex-1 sm:flex-initial">
                             <div className="sm:hidden">
                                 <GlassButton
                                     size="sm"

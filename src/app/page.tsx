@@ -11,7 +11,6 @@ import { FAQSection } from "@/components/ui/faq-section";
 import { Footer } from "@/components/ui/footer";
 import { ServicesSection } from "@/components/ui/services-section";
 import FeaturedSectionStats from "@/components/ui/featured-section-stats";
-import { ContactSection } from "@/components/ui/contact-section";
 
 const Beams = dynamic(() => import("@/components/ui/Beams"), { ssr: false });
 
@@ -152,9 +151,6 @@ export default function Home() {
       {/* Hero Section with Infinite Hero */}
       <InfiniteHero />
 
-      {/* Services Section */}
-      <ServicesSection />
-
       {/* Full Screen Scroll FX - Beratungsprozess */}
       <div id="prozess" className="relative z-10">
         <FullScreenScrollFX
@@ -228,14 +224,14 @@ export default function Home() {
         />
       </div>
 
+      {/* Services Section */}
+      <ServicesSection />
+
       {/* Stats Section */}
       <FeaturedSectionStats />
 
       {/* FAQ Section */}
       <FAQSection />
-
-      {/* Contact Section */}
-      <ContactSection />
 
       {/* Footer */}
       <Footer />

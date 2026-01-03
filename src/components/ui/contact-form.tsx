@@ -1,31 +1,76 @@
 "use client";
 
 import { useState } from "react";
+import { z } from "zod";
 import { GlassButton } from "./glass-button";
 import { Send, CheckCircle } from "lucide-react";
 
+// Input validation schema
+const contactSchema = z.object({
+  name: z.string()
+    .min(2, "Name muss mindestens 2 Zeichen haben")
+    .max(100, "Name darf maximal 100 Zeichen haben")
+    .trim(),
+  email: z.string()
+    .email("Bitte geben Sie eine gültige E-Mail-Adresse ein")
+    .max(200, "E-Mail darf maximal 200 Zeichen haben"),
+  company: z.string()
+    .max(200, "Unternehmen darf maximal 200 Zeichen haben")
+    .optional()
+    .or(z.literal("")),
+  message: z.string()
+    .min(10, "Nachricht muss mindestens 10 Zeichen haben")
+    .max(2000, "Nachricht darf maximal 2000 Zeichen haben")
+    .trim(),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 export function ContactForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     company: "",
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual form submission
-    console.log("Form submitted:", formData);
+    setErrors({});
+
+    // Validate input
+    const result = contactSchema.safeParse(formData);
+
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0] as keyof ContactFormData;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    // TODO: Implement actual form submission to backend API
+    // For now, show success message
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 5000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    // Clear error when user starts typing
+    if (errors[name as keyof ContactFormData]) {
+      setErrors({ ...errors, [name]: undefined });
+    }
   };
 
   return (
@@ -64,11 +109,17 @@ export function ContactForm() {
                     id="name"
                     name="name"
                     required
+                    maxLength={100}
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none transition-colors text-white placeholder-gray-500 ${
+                      errors.name ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-white/30'
+                    }`}
                     placeholder="Ihr vollständiger Name"
                   />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                  )}
                 </div>
 
                 <div>
@@ -80,11 +131,17 @@ export function ContactForm() {
                     id="email"
                     name="email"
                     required
+                    maxLength={200}
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none transition-colors text-white placeholder-gray-500 ${
+                      errors.email ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-white/30'
+                    }`}
                     placeholder="ihre@email.de"
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                  )}
                 </div>
 
                 <div>
@@ -95,11 +152,17 @@ export function ContactForm() {
                     type="text"
                     id="company"
                     name="company"
+                    maxLength={200}
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none transition-colors text-white placeholder-gray-500 ${
+                      errors.company ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-white/30'
+                    }`}
                     placeholder="Ihr Unternehmen"
                   />
+                  {errors.company && (
+                    <p className="mt-1 text-sm text-red-400">{errors.company}</p>
+                  )}
                 </div>
 
                 <div>
@@ -110,12 +173,18 @@ export function ContactForm() {
                     id="message"
                     name="message"
                     required
+                    maxLength={2000}
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/30 transition-colors text-white placeholder-gray-500 resize-none"
+                    className={`w-full px-4 py-3 bg-white/5 border rounded-lg focus:outline-none transition-colors text-white placeholder-gray-500 resize-none ${
+                      errors.message ? 'border-red-500/50 focus:border-red-500' : 'border-white/10 focus:border-white/30'
+                    }`}
                     placeholder="Beschreiben Sie kurz Ihr Anliegen..."
                   />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+                  )}
                 </div>
 
                 <GlassButton
@@ -155,13 +224,19 @@ export function ContactForm() {
               <p className="text-gray-400 mb-4">
                 Buchen Sie direkt einen Termin für ein kostenloses Erstgespräch (30 Min).
               </p>
-              <GlassButton
-                size="lg"
-                contentClassName="font-medium tracking-wide w-full"
-                onClick={() => window.open("https://calendly.com/your-link", "_blank")}
+              <a
+                href="https://calendly.com/your-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full"
               >
-                Kalender öffnen
-              </GlassButton>
+                <GlassButton
+                  size="lg"
+                  contentClassName="font-medium tracking-wide w-full"
+                >
+                  Kalender öffnen
+                </GlassButton>
+              </a>
             </div>
 
             <div className="border border-white/10 bg-white/5 backdrop-blur-sm p-6 rounded-2xl">

@@ -146,6 +146,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
     const isAnimatingRef = useRef(false);
     const isSnappingRef = useRef(false);
     const sectionTopRef = useRef<number[]>([]);
+    const transitionQueueRef = useRef<number[]>([]);
+    const isProcessingQueueRef = useRef(false);
 
     const prefersReduced = useMemo(() => {
       if (typeof window === "undefined") return false;
@@ -293,6 +295,20 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
             progressFillRef.current.style.width = `${p}%`;
           }
         },
+        // When scrolling up and leaving the section (back to hero)
+        onLeaveBack: () => {
+          // Keep first slide visible with blue background
+          if (lastIndexRef.current !== 0) {
+            changeSectionDirect(0);
+          }
+        },
+        // When scrolling down and leaving the section
+        onLeave: () => {
+          // Keep last slide visible with green background
+          if (lastIndexRef.current !== total - 1) {
+            changeSectionDirect(total - 1);
+          }
+        },
       });
 
       stRef.current = st;
@@ -316,9 +332,40 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [total, initialIndex, motionOff, bgTransition, parallaxAmount]);
 
-    const changeSection = (to: number) => {
-      if (to === lastIndexRef.current) return;
+    const processNextInQueue = () => {
+      if (transitionQueueRef.current.length === 0) {
+        isProcessingQueueRef.current = false;
+        return;
+      }
 
+      const nextIndex = transitionQueueRef.current.shift()!;
+      changeSectionDirect(nextIndex);
+    };
+
+    const changeSection = (to: number) => {
+      const from = lastIndexRef.current;
+
+      if (to === from) return;
+
+      // Calculate all intermediate steps
+      const steps: number[] = [];
+      const direction = to > from ? 1 : -1;
+
+      for (let i = from + direction; direction > 0 ? i <= to : i >= to; i += direction) {
+        steps.push(i);
+      }
+
+      // Add all steps to queue
+      transitionQueueRef.current.push(...steps);
+
+      // Start processing if not already running
+      if (!isProcessingQueueRef.current) {
+        isProcessingQueueRef.current = true;
+        processNextInQueue();
+      }
+    };
+
+    const changeSectionDirect = (to: number) => {
       const from = lastIndexRef.current;
       const down = to > from;
 
@@ -337,8 +384,8 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
         progressFillRef.current.style.width = `${p}%`;
       }
 
-      // Faster transition duration
-      const D = 0.45;
+      // Faster transition duration for smooth rapid transitions
+      const D = 0.35;
 
       const outWords = wordRefs.current[from] || [];
       const inWords = wordRefs.current[to] || [];
@@ -428,9 +475,10 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
         });
       });
 
-      // Only reset animation flag after animation completes
+      // Only reset animation flag after animation completes and process next in queue
       gsap.delayedCall(D, () => {
         isAnimatingRef.current = false;
+        processNextInQueue();
       });
     };
 

@@ -1,0 +1,12 @@
+# robots.txt for Vibe Consulting / KALO AI
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Disallow sensitive paths (if any exist in the future)
+Disallow: /api/
+Disallow: /_next/
+
+# Sitemap (uncomment when available)
+# Sitemap: https://vibe-consulting.de/sitemap.xml

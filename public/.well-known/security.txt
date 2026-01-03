@@ -1,0 +1,10 @@
+# Security Policy for Vibe Consulting / KALO AI
+# https://securitytxt.org/
+
+Contact: mailto:sebaskauf.business@gmail.com
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: de, en
+Canonical: https://vibe-consulting.de/.well-known/security.txt
+
+# If you discover a security vulnerability, please report it to us responsibly.
+# We appreciate your help in keeping our users safe.

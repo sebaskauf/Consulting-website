@@ -8,10 +8,10 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#leistungen", label: "Leistungen" },
-    { href: "#prozess", label: "Prozess" },
-    { href: "#kontakt", label: "Kontakt" },
+    { href: "/", label: "Home" },
+    { href: "/#leistungen", label: "Leistungen" },
+    { href: "/#prozess", label: "Prozess" },
+    { href: "/kontakt", label: "Kontakt" },
   ];
 
   return (
@@ -40,7 +40,7 @@ export default function Navbar() {
 
           {/* CTA Button - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="#kontakt">
+            <a href="/kontakt">
               <GlassButton
                 size="sm"
                 contentClassName="font-semibold"
@@ -76,7 +76,7 @@ export default function Navbar() {
               </a>
             ))}
             <div className="pt-4 border-t border-white/10">
-              <a href="#kontakt" onClick={() => setMobileMenuOpen(false)} className="block w-full">
+              <a href="/kontakt" onClick={() => setMobileMenuOpen(false)} className="block w-full">
                 <GlassButton
                   size="sm"
                   contentClassName="font-semibold w-full text-center"

@@ -1,6 +1,7 @@
 "use client";
 
 import HighlightCard from "@/components/ui/highlight-card";
+import { GlassButton } from "@/components/ui/glass-button";
 import {
   Lightbulb,
   Search,
@@ -51,7 +52,7 @@ export function ServicesSection() {
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 px-2">
             Unsere{" "}
-            <span className="bg-gradient-to-r from-[#80E8FF] via-[#A0F0FF] to-[#80E8FF] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#40FF9F] via-[#70FFAF] to-[#5FFFC8] bg-clip-text text-transparent">
               Leistungen
             </span>
           </h2>
@@ -78,10 +79,17 @@ export function ServicesSection() {
           <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wide mb-4">
             Bereit für die Zukunft?
           </p>
-          <a href="#kontakt" className="inline-block w-full sm:w-auto">
-            <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#80E8FF] to-[#A0F0FF] text-black font-semibold rounded-full hover:shadow-2xl hover:shadow-[#80E8FF]/50 transition-all duration-300 hover:scale-105 text-sm sm:text-base">
+          <a href="/kontakt" className="inline-block">
+            <GlassButton
+              size="lg"
+              contentClassName="font-semibold tracking-wide"
+              style={{
+                background: 'linear-gradient(135deg, rgba(64, 255, 159, 0.1), rgba(112, 255, 175, 0.1))',
+                borderColor: 'rgba(112, 255, 175, 0.3)',
+              }}
+            >
               Kostenloses Beratungsgespräch vereinbaren
-            </button>
+            </GlassButton>
           </a>
         </div>
       </div>
