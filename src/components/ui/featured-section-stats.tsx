@@ -77,7 +77,7 @@ export default function FeaturedSectionStats() {
             <AreaChart data={data} key={animationKey}>
               <defs>
                 <linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#70FFAF" stopOpacity={0.6} />
+                  <stop offset="5%" stopColor="#70FFAF" stopOpacity={0.5} />
                   <stop offset="95%" stopColor="#70FFAF" stopOpacity={0} />
                 </linearGradient>
               </defs>

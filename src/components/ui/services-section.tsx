@@ -52,7 +52,7 @@ export function ServicesSection() {
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 px-2">
             Unsere{" "}
-            <span className="bg-gradient-to-r from-[#40FF9F] via-[#70FFAF] to-[#5FFFC8] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#50E8A8] via-[#70FFAF] to-[#70D8B8] bg-clip-text text-transparent">
               Leistungen
             </span>
           </h2>
@@ -84,11 +84,11 @@ export function ServicesSection() {
               size="lg"
               contentClassName="font-semibold tracking-wide"
               style={{
-                background: 'linear-gradient(135deg, rgba(64, 255, 159, 0.1), rgba(112, 255, 175, 0.1))',
+                background: 'linear-gradient(135deg, rgba(112, 255, 175, 0.1), rgba(112, 216, 184, 0.1))',
                 borderColor: 'rgba(112, 255, 175, 0.3)',
               }}
             >
-              Kostenloses Beratungsgespräch vereinbaren
+              In 30 Min. Potenziale entdecken
             </GlassButton>
           </a>
         </div>

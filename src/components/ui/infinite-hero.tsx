@@ -150,7 +150,7 @@ export default function InfiniteHero() {
                                     size="sm"
                                     contentClassName="font-semibold tracking-wide text-xs"
                                 >
-                                    Kostenloses Erstgespräch
+                                    Unverbindlich beraten
                                 </GlassButton>
                             </div>
                             <div className="hidden sm:block">
@@ -158,7 +158,7 @@ export default function InfiniteHero() {
                                     size="lg"
                                     contentClassName="font-semibold tracking-wide"
                                 >
-                                    Kostenloses Erstgespräch
+                                    Unverbindlich beraten lassen
                                 </GlassButton>
                             </div>
                         </a>
@@ -169,7 +169,7 @@ export default function InfiniteHero() {
                                     size="sm"
                                     contentClassName="font-semibold tracking-wide text-xs"
                                 >
-                                    Mehr erfahren
+                                    Leistungen
                                 </GlassButton>
                             </div>
                             <div className="hidden sm:block">
@@ -177,7 +177,7 @@ export default function InfiniteHero() {
                                     size="lg"
                                     contentClassName="font-semibold tracking-wide"
                                 >
-                                    Mehr erfahren
+                                    Unsere Leistungen
                                 </GlassButton>
                             </div>
                         </a>
@@ -186,19 +186,19 @@ export default function InfiniteHero() {
                     {/* Stats */}
                     <div
                         ref={trustRef}
-                        className="mt-6 sm:mt-12 grid grid-cols-3 gap-2 sm:gap-8 max-w-2xl mx-auto px-2 sm:px-4"
+                        className="mt-6 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto px-3 sm:px-4"
                     >
                         <div className="text-center">
-                            <div className="text-lg sm:text-3xl font-bold text-white mb-1 sm:mb-2">20+</div>
-                            <div className="text-white/60 text-[0.55rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight px-1">Erfolgreiche Projekte</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">20+</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight">Projekte</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-lg sm:text-3xl font-bold text-white mb-1 sm:mb-2">98%</div>
-                            <div className="text-white/60 text-[0.55rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight px-1">Kunden-zufriedenheit</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">98%</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight">Zufriedenheit</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-lg sm:text-3xl font-bold text-white mb-1 sm:mb-2">24/7</div>
-                            <div className="text-white/60 text-[0.55rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight px-1">Support</div>
+                            <div className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">Ø 40%</div>
+                            <div className="text-white/60 text-[0.65rem] sm:text-sm uppercase tracking-tight sm:tracking-wide leading-tight">Zeitersparnis</div>
                         </div>
                     </div>
                 </div>

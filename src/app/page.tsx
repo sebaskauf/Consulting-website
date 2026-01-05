@@ -10,16 +10,18 @@ import { PhaseNumber } from "@/components/ui/phase-number";
 import { FAQSection } from "@/components/ui/faq-section";
 import { Footer } from "@/components/ui/footer";
 import { ServicesSection } from "@/components/ui/services-section";
+import { TestimonialsSection } from "@/components/ui/testimonials-section";
+import { StickyMobileCTA } from "@/components/ui/sticky-mobile-cta";
 import FeaturedSectionStats from "@/components/ui/featured-section-stats";
 
 const Beams = dynamic(() => import("@/components/ui/Beams"), { ssr: false });
 
 // Phase colors for the big numbers
 const phaseNumberColors = {
-  0: '#A0F0FF',  // Helleres Cyan (NEU)
+  0: '#A0F0FF',  // Helleres Cyan
   1: '#D4C5FF',  // Helleres Lila
-  2: '#FF7A98',  // Warmes Rot/Pink (NEU)
-  3: '#70FFAF'   // Grün
+  2: '#FF7A98',  // Warmes Rot/Pink
+  3: '#70FFAF'   // Neon Mint Grün
 };
 
 const consultingProcessSections = [
@@ -82,7 +84,7 @@ export default function Home() {
     1: ['#C8B3FF', '#D4C5FF', '#BFA8FF', '#E0D5FF', '#B89FFF', '#DCC8FF', '#C0AAFF'],
     // Phase 2: Warmes Rot/Pink (NEU für Umsetzung)
     2: ['#FF6B88', '#FF7A98', '#FF5578', '#FF8AA8', '#FF4068', '#FFA0B8', '#FF6080'],
-    // Phase 3: Edles Grün mit Blau-Grün Akzenten
+    // Phase 3: Neon Mint Grün
     3: ['#40FF9F', '#70FFAF', '#50FFAF', '#60D8C8', '#5FFFC8', '#48E8D0', '#70FFD8']
   };
 
@@ -91,7 +93,7 @@ export default function Home() {
     0: '#A0E8FF',    // Helleres Cyan für Hero/Phase 0 (NEU)
     1: '#D4C5FF',    // Helleres Lila für Phase 1
     2: '#FF7A98',    // Warmes Rot/Pink für Phase 2 (NEU)
-    3: '#70FFD0'     // Grün-Türkis für Phase 3
+    3: '#70FFD0'     // Neon Mint für Phase 3
   };
 
   const [liquidColors, setLiquidColors] = useState(phaseColors[0]);
@@ -227,6 +229,9 @@ export default function Home() {
       {/* Services Section */}
       <ServicesSection />
 
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
       {/* Stats Section */}
       <FeaturedSectionStats />
 
@@ -235,6 +240,9 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Sticky Mobile CTA */}
+      <StickyMobileCTA />
     </main>
   );
 }
