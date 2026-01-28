@@ -6,7 +6,6 @@ export function Footer() {
   const company = [
     { title: "Über uns", href: "/ueber-uns" },
     { title: "Services", href: "/#services" },
-    { title: "Blog", href: "#blog" },
   ];
 
   const legal = [
