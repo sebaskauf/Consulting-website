@@ -22,7 +22,7 @@ export default function DatenschutzPage() {
               </p>
               <p className="mt-2">
                 Vibe Consulting<br />
-                E-Mail: <a href="mailto:sebaskauf.business@gmail.com" className="text-[#A0F0FF] hover:underline">sebaskauf.business@gmail.com</a>
+                E-Mail: <a href="mailto:sebastian@skaile.de" className="text-[#A0F0FF] hover:underline">sebastian@skaile.de</a>
               </p>
             </section>
 
@@ -121,7 +121,7 @@ export default function DatenschutzPage() {
               <h2 className="text-xl font-semibold text-white mb-4">9. Kontakt</h2>
               <p>
                 Bei Fragen zum Datenschutz erreichen Sie uns unter:<br />
-                <a href="mailto:sebaskauf.business@gmail.com" className="text-[#A0F0FF] hover:underline">sebaskauf.business@gmail.com</a>
+                <a href="mailto:sebastian@skaile.de" className="text-[#A0F0FF] hover:underline">sebastian@skaile.de</a>
               </p>
             </section>
 

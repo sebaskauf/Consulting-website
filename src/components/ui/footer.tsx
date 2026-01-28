@@ -34,7 +34,7 @@ export function Footer() {
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      href: "mailto:kontakt@vibe-consulting.de",
+      href: "mailto:sebastian@skaile.de",
       label: "E-Mail",
     },
     {

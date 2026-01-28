@@ -9,7 +9,7 @@ const reviews = [
     name: "Michael Schneider",
     affiliation: "Geschäftsführer, TechVentures GmbH",
     quote:
-      "Die Zusammenarbeit mit KALO AI hat unsere Erwartungen übertroffen. Innerhalb von 8 Wochen konnten wir repetitive Prozesse vollständig automatisieren und unser Team kann sich jetzt auf strategische Aufgaben konzentrieren.",
+      "Die Zusammenarbeit mit Skaile AI hat unsere Erwartungen übertroffen. Innerhalb von 8 Wochen konnten wir repetitive Prozesse vollständig automatisieren und unser Team kann sich jetzt auf strategische Aufgaben konzentrieren.",
     result: "45% Zeitersparnis",
     imageSrc:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop&q=80",
@@ -45,7 +45,7 @@ const reviews = [
     name: "Sandra Hoffmann",
     affiliation: "CEO, Digital Retail Group",
     quote:
-      "KALO AI hat uns gezeigt, wo KI wirklich Sinn macht - und wo nicht. Diese ehrliche Beratung hat uns vor Fehlinvestitionen bewahrt und den Fokus auf die richtigen Projekte gelenkt.",
+      "Skaile AI hat uns gezeigt, wo KI wirklich Sinn macht - und wo nicht. Diese ehrliche Beratung hat uns vor Fehlinvestitionen bewahrt und den Fokus auf die richtigen Projekte gelenkt.",
     result: "3 Kernprozesse automatisiert",
     imageSrc:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&q=80",

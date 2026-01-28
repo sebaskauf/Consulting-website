@@ -19,7 +19,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "KALO AI - KI-Entwicklung für Ihr Unternehmen",
+  title: "Skaile AI - KI-Entwicklung für Ihr Unternehmen",
   description: "Maßgeschneiderte KI-Lösungen, Automatisierung und intelligente Prozessoptimierung für nachhaltiges Wachstum.",
 };
 

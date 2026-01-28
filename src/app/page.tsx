@@ -7,6 +7,7 @@ import LiquidEther from "@/components/ui/liquid-ether";
 import Navbar from "@/components/ui/navbar";
 import { GlassButton } from "@/components/ui/glass-button";
 import { PhaseNumber } from "@/components/ui/phase-number";
+import { QuizIntro } from "@/components/AIReadinessQuiz/QuizIntro";
 import { FAQSection } from "@/components/ui/faq-section";
 import { Footer } from "@/components/ui/footer";
 import { ServicesSection } from "@/components/ui/services-section";
@@ -152,6 +153,11 @@ export default function Home() {
 
       {/* Hero Section with Infinite Hero */}
       <InfiniteHero />
+
+      {/* AI Readiness Quiz Intro - Links to /quiz page */}
+      <div id="quiz" className="relative z-10">
+        <QuizIntro navigateToPage />
+      </div>
 
       {/* Full Screen Scroll FX - Beratungsprozess */}
       <div id="prozess" className="relative z-10">

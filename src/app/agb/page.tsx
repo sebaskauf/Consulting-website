@@ -156,7 +156,7 @@ export default function AGBPage() {
               <h2 className="text-xl font-semibold text-white mb-4">13. Kontakt</h2>
               <p>
                 Bei Fragen zu diesen Nutzungsbedingungen erreichen Sie uns unter:<br />
-                <a href="mailto:sebaskauf.business@gmail.com" className="text-[#A0F0FF] hover:underline">sebaskauf.business@gmail.com</a>
+                <a href="mailto:sebastian@skaile.de" className="text-[#A0F0FF] hover:underline">sebastian@skaile.de</a>
               </p>
             </section>
           </div>

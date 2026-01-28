@@ -34,13 +34,13 @@ export function ContactSection() {
             Alternativ können Sie uns auch direkt kontaktieren:
           </p>
           <a
-            href="mailto:sebaskauf.business@gmail.com"
+            href="mailto:sebastian@skaile.de"
             className="inline-flex items-center gap-2 text-[#A0F0FF] hover:text-[#80E8FF] transition-colors text-sm sm:text-base"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            sebaskauf.business@gmail.com
+            sebastian@skaile.de
           </a>
         </div>
       </div>

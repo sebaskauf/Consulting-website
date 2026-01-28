@@ -21,7 +21,7 @@ export default function Navbar() {
           {/* Brand Name */}
           <div className="flex items-center">
             <a href="#home" className="text-xl sm:text-2xl font-bold text-white tracking-tight cursor-pointer hover:opacity-80 transition-opacity">
-              KALO AI
+              Skaile AI
             </a>
           </div>
 

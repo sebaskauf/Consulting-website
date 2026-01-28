@@ -206,8 +206,8 @@ export function ContactForm() {
               <div className="space-y-3 text-gray-400">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">E-Mail</p>
-                  <a href="mailto:kontakt@vibe-consulting.de" className="hover:text-white transition-colors">
-                    kontakt@vibe-consulting.de
+                  <a href="mailto:sebastian@skaile.de" className="hover:text-white transition-colors">
+                    sebastian@skaile.de
                   </a>
                 </div>
                 <div>
