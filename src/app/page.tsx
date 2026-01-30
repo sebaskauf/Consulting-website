@@ -11,7 +11,8 @@ import { QuizIntro } from "@/components/AIReadinessQuiz/QuizIntro";
 import { FAQSection } from "@/components/ui/faq-section";
 import { Footer } from "@/components/ui/footer";
 import { ServicesSection } from "@/components/ui/services-section";
-import { TestimonialsSection } from "@/components/ui/testimonials-section";
+// Testimonials temporarily removed - backup in .backup/testimonials/
+// import { TestimonialsSection } from "@/components/ui/testimonials-section";
 import { StickyMobileCTA } from "@/components/ui/sticky-mobile-cta";
 import FeaturedSectionStats from "@/components/ui/featured-section-stats";
 
@@ -235,8 +236,7 @@ export default function Home() {
       {/* Services Section */}
       <ServicesSection />
 
-      {/* Testimonials Section */}
-      <TestimonialsSection />
+      {/* Testimonials Section - temporarily removed, backup in .backup/testimonials/ */}
 
       {/* Stats Section */}
       <FeaturedSectionStats />
