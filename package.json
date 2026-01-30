@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "remotion:studio": "remotion studio remotion/index.tsx",
+    "remotion:render": "remotion render remotion/index.tsx",
+    "remotion:render:hero": "remotion render remotion/index.tsx HeroAnimation --image-format=png --crf=18 --x264-preset=slow",
+    "remotion:render:outro": "remotion render remotion/index.tsx SimpleOutro --image-format=png --crf=18 --x264-preset=slow"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -33,13 +37,18 @@
     "zod": "^4.3.4"
   },
   "devDependencies": {
+    "@remotion/bundler": "^4.0.410",
+    "@remotion/cli": "^4.0.410",
+    "@remotion/renderer": "^4.0.410",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.0.7",
+    "remotion": "^4.0.410",
     "tailwindcss": "^4",
+    "timeweb": "^0.3.2",
     "typescript": "^5"
   }
 }
