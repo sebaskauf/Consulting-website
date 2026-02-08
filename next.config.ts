@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cal.com",
+              "script-src 'self' 'unsafe-inline' https://cal.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
@@ -46,6 +46,8 @@ const nextConfig: NextConfig = {
               "connect-src 'self' https://cal.com",
               "worker-src 'self' blob:",
               "frame-ancestors 'self'",
+              "base-uri 'self'",
+              "form-action 'self'",
             ].join('; '),
           },
         ],

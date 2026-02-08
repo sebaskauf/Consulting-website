@@ -17,12 +17,14 @@ interface Logo {
 
 interface Logos3Props {
   heading?: string;
+  headingClassName?: string;
   logos?: Logo[];
   className?: string;
 }
 
 const Logos3 = ({
   heading = "Trusted by these companies",
+  headingClassName = "",
   logos = [
     {
       id: "logo-1",
@@ -64,12 +66,12 @@ const Logos3 = ({
 }: Logos3Props) => {
   return (
     <section className="py-6 sm:py-8 pointer-events-none">
-      <div className="flex flex-col items-center text-center mb-2">
-        <h3 className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider px-4">
+      <div className={`flex flex-col items-center text-center ${headingClassName}`}>
+        <h3 className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider px-4 mb-0">
           {heading}
         </h3>
       </div>
-      <div className="pt-3 sm:pt-4">
+      <div className="pt-1 sm:pt-2">
         <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
           <Carousel
             opts={{ loop: true }}

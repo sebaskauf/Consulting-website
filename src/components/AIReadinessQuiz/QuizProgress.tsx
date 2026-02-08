@@ -37,20 +37,20 @@ export function QuizProgress({
 
       {/* Progress Bar Container */}
       <div className="relative h-2 bg-white/10 rounded-full overflow-hidden">
-        {/* Animated Progress Fill */}
+        {/* Animated Progress Fill - Blau-Gradient */}
         <motion.div
           className="absolute inset-y-0 left-0 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           style={{
-            background: 'linear-gradient(90deg, #A0F0FF 0%, #D4C5FF 50%, #FF7A98 100%)',
+            background: 'linear-gradient(90deg, #A0F0FF 0%, #60A5FA 100%)',
           }}
         />
 
         {/* Shimmer Effect */}
         <motion.div
-          className="absolute inset-y-0 w-20 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+          className="absolute inset-y-0 w-20 bg-gradient-to-r from-transparent via-white/30 to-transparent"
           animate={{
             x: ['-80px', '500px'],
           }}
@@ -77,7 +77,7 @@ export function QuizProgress({
               transition={{ duration: 0.3, delay: index * 0.03 }}
               className={`w-2 h-2 rounded-full transition-colors duration-300 ${
                 index < currentIndex
-                  ? 'bg-[#70FFAF]'
+                  ? 'bg-[#60A5FA]'
                   : index === currentIndex
                   ? 'bg-[#A0F0FF]'
                   : 'bg-white/20'

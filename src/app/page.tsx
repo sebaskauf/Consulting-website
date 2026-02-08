@@ -15,6 +15,7 @@ import { ServicesSection } from "@/components/ui/services-section";
 // import { TestimonialsSection } from "@/components/ui/testimonials-section";
 import { StickyMobileCTA } from "@/components/ui/sticky-mobile-cta";
 import FeaturedSectionStats from "@/components/ui/featured-section-stats";
+import { KatchupSection } from "@/components/ui/katchup-section";
 
 const Beams = dynamic(() => import("@/components/ui/Beams"), { ssr: false });
 
@@ -114,14 +115,14 @@ export default function Home() {
       <Navbar />
 
       {/* Background Layer 1: Beams - visible on all pages */}
-      <div className="fixed inset-0 z-0 opacity-65 mix-blend-lighten pointer-events-none">
+      <div className="fixed inset-0 z-0 opacity-80 mix-blend-lighten pointer-events-none">
         <Beams
           lightColor={beamsColor}
-          beamWidth={2.5}
-          beamHeight={18}
-          beamNumber={15}
+          beamWidth={3}
+          beamHeight={22}
+          beamNumber={20}
           speed={2.5}
-          noiseIntensity={2}
+          noiseIntensity={1.8}
           scale={0.15}
           rotation={43}
         />
@@ -133,22 +134,22 @@ export default function Home() {
           colors={liquidColors}
           mouseForce={0}
           cursorSize={0}
-          resolution={0.3}
+          resolution={0.25}
           autoDemo={true}
-          autoSpeed={0.6}
-          autoIntensity={6.5}
+          autoSpeed={0.7}
+          autoIntensity={10}
           autoResumeDelay={0}
           autoRampDuration={0.8}
-          dt={0.018}
+          dt={0.016}
           style={{ width: '100%', height: '100%' }}
         />
       </div>
 
-      {/* Vignette overlay - leichtere Abdunklung für bessere Farbverbreitung */}
+      {/* Vignette overlay - sehr leichte Abdunklung nur am Rand */}
       <div
         className="fixed inset-0 z-[1] pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.15) 80%, rgba(0,0,0,0.4) 100%)'
+          background: 'radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.08) 85%, rgba(0,0,0,0.25) 100%)'
         }}
       />
 
@@ -240,6 +241,9 @@ export default function Home() {
 
       {/* Stats Section */}
       <FeaturedSectionStats />
+
+      {/* Katchup AI Section */}
+      <KatchupSection />
 
       {/* FAQ Section */}
       <FAQSection />

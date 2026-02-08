@@ -207,7 +207,8 @@ export default function InfiniteHero() {
             {/* Trust Widget - Company Logos */}
             <div className="absolute bottom-2 sm:bottom-4 left-0 right-0 z-20 px-4">
                 <Logos3
-                    heading="Vertraut von vielen Unternehmen"
+                    heading="Vertraut von innovativen Unternehmen"
+                    headingClassName="-mb-2 sm:-mb-3"
                 />
             </div>
         </div>

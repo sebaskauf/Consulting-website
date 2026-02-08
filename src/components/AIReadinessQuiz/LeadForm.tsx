@@ -84,7 +84,7 @@ export function LeadForm({ onSubmit, onSkip, totalScore }: LeadFormProps) {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#A0F0FF]/20 to-[#D4C5FF]/20 border border-white/10 mb-4"
+          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#A0F0FF]/20 to-[#60A5FA]/20 border border-white/10 mb-4"
         >
           <Sparkles className="w-8 h-8 text-[#A0F0FF]" />
         </motion.div>
@@ -329,7 +329,7 @@ export function LeadForm({ onSubmit, onSkip, totalScore }: LeadFormProps) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="w-full mt-6 py-4 rounded-xl font-medium flex items-center justify-center gap-2
-                    bg-gradient-to-r from-[#A0F0FF] to-[#D4C5FF] text-black
+                    bg-gradient-to-r from-[#A0F0FF] to-[#60A5FA] text-black
                     hover:shadow-lg hover:shadow-[#A0F0FF]/20 transition-all duration-300
                     disabled:opacity-70 disabled:cursor-not-allowed"
         >

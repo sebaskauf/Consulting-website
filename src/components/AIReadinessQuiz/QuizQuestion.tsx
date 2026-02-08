@@ -157,7 +157,7 @@ export function QuizQuestion({
                              flex items-center gap-4 group
                              ${
                                isSelected
-                                 ? 'bg-gradient-to-r from-[#A0F0FF]/20 to-[#D4C5FF]/10 border-[#A0F0FF]/50'
+                                 ? 'bg-gradient-to-r from-[#A0F0FF]/20 to-[#60A5FA]/10 border-[#A0F0FF]/50'
                                  : 'bg-white/5 border-white/10 hover:bg-white/[0.08] hover:border-white/20'
                              }
                              border backdrop-blur-sm`}
@@ -228,7 +228,7 @@ export function QuizQuestion({
                        transition-all duration-300
                        ${
                          canProceed
-                           ? 'bg-gradient-to-r from-[#A0F0FF] to-[#D4C5FF] text-black hover:shadow-lg hover:shadow-[#A0F0FF]/20'
+                           ? 'bg-gradient-to-r from-[#A0F0FF] to-[#60A5FA] text-black hover:shadow-lg hover:shadow-[#A0F0FF]/20'
                            : 'bg-white/10 text-white/40 cursor-not-allowed'
                        }`}
           >
@@ -268,7 +268,7 @@ export function QuizQuestion({
                        transition-all duration-300
                        ${
                          canProceed
-                           ? 'bg-gradient-to-r from-[#A0F0FF] to-[#D4C5FF] text-black hover:shadow-lg hover:shadow-[#A0F0FF]/20'
+                           ? 'bg-gradient-to-r from-[#A0F0FF] to-[#60A5FA] text-black hover:shadow-lg hover:shadow-[#A0F0FF]/20'
                            : 'bg-white/10 text-white/40'
                        }`}
           >

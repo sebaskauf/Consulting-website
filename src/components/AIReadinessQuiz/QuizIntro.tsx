@@ -26,7 +26,7 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-4xl mx-auto px-4 py-8 md:py-12"
+      className="w-full max-w-5xl mx-auto px-4 py-8 md:py-12"
     >
       {/* Header */}
       <div className="text-center mb-10 md:mb-14">
@@ -50,7 +50,7 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
           <span className="relative inline-block">
             <span className="relative z-10">dein Unternehmen</span>
             <span
-              className="absolute bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[#A0F0FF] to-[#D4C5FF]"
+              className="absolute bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-[#A0F0FF] to-[#60A5FA]"
               style={{ transform: 'scaleX(1)' }}
             />
           </span>
@@ -69,7 +69,7 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
       </div>
 
       {/* Mode Selection Cards */}
-      <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {/* Schnell-Check Card */}
         <motion.button
           initial={{ opacity: 0, x: -20 }}
@@ -78,18 +78,30 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
           whileHover={{ scale: 1.02, y: -4 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => handleSelectMode('schnell_check')}
-          className="group relative p-6 md:p-8 rounded-2xl text-left transition-all duration-300
-                     bg-gradient-to-br from-white/[0.08] to-white/[0.02]
-                     border border-white/10 hover:border-[#A0F0FF]/40
-                     backdrop-blur-xl overflow-hidden"
+          className="group relative p-8 md:p-10 rounded-2xl text-left transition-all duration-300 overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)',
+          }}
         >
           {/* Glow effect on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#A0F0FF]/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#A0F0FF]/15 to-transparent" />
           </div>
 
+          {/* Border glow on hover */}
+          <div
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={{
+              boxShadow: 'inset 0 0 0 1px rgba(160, 240, 255, 0.3)',
+            }}
+          />
+
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-5">
               <div className="p-3 rounded-xl bg-[#A0F0FF]/10 border border-[#A0F0FF]/20">
                 <Zap className="w-6 h-6 text-[#A0F0FF]" />
               </div>
@@ -99,15 +111,15 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
               </div>
             </div>
 
-            <h3 className="font-heading text-xl md:text-2xl font-semibold text-white mb-2">
+            <h3 className="font-heading text-xl md:text-2xl font-semibold text-white mb-3">
               Schnell-Check
             </h3>
 
-            <p className="text-white/50 text-sm md:text-base mb-6">
+            <p className="text-white/60 text-sm md:text-base mb-6 leading-relaxed">
               Schnelle Übersicht für Eilige. 7 Fragen, generischer AI-Readiness-Score.
             </p>
 
-            <div className="flex items-center gap-2 text-[#A0F0FF] font-medium">
+            <div className="flex items-center gap-2 text-[#A0F0FF] font-semibold">
               <span>Jetzt starten</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -122,27 +134,39 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
           whileHover={{ scale: 1.02, y: -4 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => handleSelectMode('detaillierte_analyse')}
-          className="group relative p-6 md:p-8 rounded-2xl text-left transition-all duration-300
-                     bg-gradient-to-br from-white/[0.08] to-white/[0.02]
-                     border border-white/10 hover:border-[#D4C5FF]/40
-                     backdrop-blur-xl overflow-hidden"
+          className="group relative p-8 md:p-10 rounded-2xl text-left transition-all duration-300 overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255,255,255,0.12)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)',
+          }}
         >
           {/* Glow effect on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D4C5FF]/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#60A5FA]/15 to-transparent" />
           </div>
+
+          {/* Border glow on hover */}
+          <div
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={{
+              boxShadow: 'inset 0 0 0 1px rgba(96, 165, 250, 0.3)',
+            }}
+          />
 
           {/* Recommended badge */}
           <div className="absolute top-4 right-4">
-            <span className="px-2 py-1 text-xs font-medium rounded-full bg-[#D4C5FF]/20 text-[#D4C5FF] border border-[#D4C5FF]/30">
+            <span className="px-3 py-1.5 text-xs font-semibold rounded-full bg-[#60A5FA]/15 text-[#60A5FA] border border-[#60A5FA]/25">
               Empfohlen
             </span>
           </div>
 
           <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 rounded-xl bg-[#D4C5FF]/10 border border-[#D4C5FF]/20">
-                <Sparkles className="w-6 h-6 text-[#D4C5FF]" />
+            <div className="flex items-center justify-between mb-5">
+              <div className="p-3 rounded-xl bg-[#60A5FA]/10 border border-[#60A5FA]/20">
+                <Sparkles className="w-6 h-6 text-[#60A5FA]" />
               </div>
               <div className="flex items-center gap-1.5 text-white/50 text-sm">
                 <Clock className="w-4 h-4" />
@@ -150,15 +174,15 @@ export function QuizIntro({ onSelectMode, navigateToPage = false }: QuizIntroPro
               </div>
             </div>
 
-            <h3 className="font-heading text-xl md:text-2xl font-semibold text-white mb-2">
+            <h3 className="font-heading text-xl md:text-2xl font-semibold text-white mb-3">
               Detaillierte Analyse
             </h3>
 
-            <p className="text-white/50 text-sm md:text-base mb-6">
+            <p className="text-white/60 text-sm md:text-base mb-6 leading-relaxed">
               Tiefgehende Analyse mit persönlichen Empfehlungen. Beschreibe dein konkretes Problem.
             </p>
 
-            <div className="flex items-center gap-2 text-[#D4C5FF] font-medium">
+            <div className="flex items-center gap-2 text-[#60A5FA] font-semibold">
               <span>Analyse starten</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>

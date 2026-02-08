@@ -17,11 +17,7 @@ function QuizContent() {
 
   return (
     <AIReadinessQuiz
-      geminiApiKey={process.env.NEXT_PUBLIC_GEMINI_API_KEY}
       initialMode={mode}
-      onLeadSubmit={(data, results) => {
-        console.log('Lead submitted:', data, results);
-      }}
     />
   );
 }

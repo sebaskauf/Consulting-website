@@ -13,6 +13,7 @@ import {
 import { getQuestionsForMode } from './questions';
 import { calculateQuizResults } from './scoring';
 import { getGeminiAnalysis, getFallbackAnalysis } from './geminiService';
+import { sendQuizResultEmail } from './emailService';
 import { QuizIntro } from './QuizIntro';
 import { QuizProgress } from './QuizProgress';
 import { QuizQuestion } from './QuizQuestion';
@@ -20,14 +21,11 @@ import { LeadForm } from './LeadForm';
 import { QuizResult } from './QuizResult';
 
 interface AIReadinessQuizProps {
-  geminiApiKey?: string;
-  calendlyUrl?: string;
   initialMode?: QuizMode | null;
   onLeadSubmit?: (data: LeadFormData, results: unknown) => void;
 }
 
 export function AIReadinessQuiz({
-  geminiApiKey,
   initialMode,
   onLeadSubmit,
 }: AIReadinessQuizProps) {
@@ -42,6 +40,9 @@ export function AIReadinessQuiz({
     showBasicResult: false,
   }));
 
+  // Track if email has been sent to avoid duplicates
+  const [emailSent, setEmailSent] = useState(false);
+
   // Handle initialMode changes (e.g., from URL params)
   useEffect(() => {
     if (initialMode && state.step === 'intro') {
@@ -54,6 +55,45 @@ export function AIReadinessQuiz({
       }));
     }
   }, [initialMode, state.step]);
+
+  // Send email when Gemini analysis is ready
+  useEffect(() => {
+    async function sendEmailWhenReady() {
+      // Only send if:
+      // - We're on the result step
+      // - User provided lead data and wants email
+      // - Gemini analysis is done (not loading, no error)
+      // - Email hasn't been sent yet
+      if (
+        state.step === 'result' &&
+        state.leadData?.wantsEmailResult &&
+        state.results &&
+        state.geminiAnalysis &&
+        !state.geminiAnalysis.isLoading &&
+        !emailSent
+      ) {
+        setEmailSent(true);
+
+        const result = await sendQuizResultEmail({
+          leadData: state.leadData,
+          results: state.results,
+          geminiAnalysis: state.geminiAnalysis,
+        });
+
+        if (!result.success && !result.skipped) {
+          console.warn('Email send failed');
+        }
+      }
+    }
+
+    sendEmailWhenReady();
+  }, [
+    state.step,
+    state.leadData,
+    state.results,
+    state.geminiAnalysis,
+    emailSent,
+  ]);
 
   // Get current questions based on mode
   const questions = useMemo(() => {
@@ -129,7 +169,7 @@ export function AIReadinessQuiz({
     });
   }, [questions.length]);
 
-  // Fetch Gemini analysis
+  // Fetch Gemini analysis via server-side API route
   const fetchGeminiAnalysis = useCallback(
     async (results: QuizState['results']) => {
       if (!results) return;
@@ -147,21 +187,22 @@ export function AIReadinessQuiz({
       }));
 
       try {
-        let analysis: GeminiAnalysis;
+        const analysis = await getGeminiAnalysis(results);
 
-        if (geminiApiKey) {
-          analysis = await getGeminiAnalysis(results, geminiApiKey);
+        // If the API returned an error, use fallback
+        if (analysis.error) {
+          const fallback = getFallbackAnalysis(results);
+          setState((prev) => ({
+            ...prev,
+            geminiAnalysis: fallback,
+          }));
         } else {
-          // Use fallback analysis if no API key
-          analysis = getFallbackAnalysis(results);
+          setState((prev) => ({
+            ...prev,
+            geminiAnalysis: analysis,
+          }));
         }
-
-        setState((prev) => ({
-          ...prev,
-          geminiAnalysis: analysis,
-        }));
-      } catch (error) {
-        console.error('Failed to get Gemini analysis:', error);
+      } catch {
         // Use fallback on error
         const fallback = getFallbackAnalysis(results);
         setState((prev) => ({
@@ -170,7 +211,7 @@ export function AIReadinessQuiz({
         }));
       }
     },
-    [geminiApiKey]
+    []
   );
 
   // Handle lead form submission
@@ -224,6 +265,7 @@ export function AIReadinessQuiz({
       geminiAnalysis: null,
       showBasicResult: false,
     });
+    setEmailSent(false); // Reset email sent flag
   }, []);
 
   return (

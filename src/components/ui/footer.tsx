@@ -20,14 +20,14 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative z-10 bg-black border-t border-white/10 text-white">
+    <footer className="relative z-10 bg-[#121220]/90 border-t border-white/10 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-5 sm:mb-6">
               <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Vibe Consulting
+                SKAILE.AI
               </h3>
               <p className="text-gray-400 mt-2 text-sm sm:text-base">
                 KI-Beratung & Automation
@@ -99,7 +99,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 pt-6 sm:pt-8 flex justify-center items-center">
           <p className="text-gray-400 text-xs sm:text-sm text-center">
-            © {year} Vibe Consulting. Alle Rechte vorbehalten.
+            © {year} SKAILE.AI. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

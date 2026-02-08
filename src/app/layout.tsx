@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-// Professional body font - clean and readable
-const dmSans = DM_Sans({
+// Modern, elegant font - clean and professional
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-// Modern headline font - distinctive but professional
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["500", "600", "700"],
+  variable: "--font-plus-jakarta",
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -30,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className={`${dmSans.variable} ${spaceGrotesk.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} antialiased`}>
         {children}
       </body>
     </html>

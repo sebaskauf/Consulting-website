@@ -39,7 +39,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative z-10 bg-black/80 backdrop-blur-sm text-white py-20 sm:py-32 px-4 sm:px-6">
+    <section className="relative z-10 bg-[#121220]/50 backdrop-blur-sm text-white py-20 sm:py-32 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-2">

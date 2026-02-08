@@ -89,7 +89,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
       className,
       style,
 
-      fontFamily = '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
+      fontFamily = 'var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif',
       header,
       footer,
       gap = 1,

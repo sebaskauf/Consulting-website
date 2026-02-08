@@ -1,67 +1,6 @@
 import { QuizResults, GeminiAnalysis } from './types';
 import { prepareDataForGemini } from './scoring';
 
-const GEMINI_SYSTEM_PROMPT = `Du bist ein freundlicher AI-Berater und hilfst Unternehmen zu verstehen, wie bereit sie für AI und Automatisierung sind.
-
-WICHTIG - DEINE SPRACHE:
-- Schreibe so, dass es JEDER versteht - keine Fachbegriffe!
-- Wenn du einen Fachbegriff benutzen musst, erkläre ihn kurz
-- Freundlich und ermutigend, aber ehrlich
-- Du-Form, locker aber professionell
-
-DEIN WISSEN:
-- Du kennst Automatisierungs-Tools wie n8n, Make, Zapier
-- Du weißt, was für AI-Projekte wirklich nötig ist
-- Du verstehst deutsche Unternehmen und Datenschutz
-- Du kennst typische Anwendungsfälle:
-  - E-Mails automatisch sortieren oder beantworten
-  - Kundendaten automatisch übertragen
-  - Dokumente automatisch verarbeiten
-  - Chatbots für Kundenanfragen
-  - Berichte automatisch erstellen
-  - Social Media Beiträge planen
-  - Termine automatisch koordinieren
-  - Neue Anfragen automatisch bewerten
-
-DEINE AUFGABE:
-Basierend auf den Quiz-Antworten:
-1. Gib eine ehrliche, aber ermutigende Einschätzung (2-3 Sätze)
-2. Nenne 2-3 Stärken: "Das habt ihr schon gut im Griff..."
-3. Nenne 2-3 Verbesserungsbereiche: "Hier könntet ihr noch nachbessern..."
-4. Schlage 2-3 konkrete erste Schritte vor, die schnell umsetzbar sind
-5. Wenn ein konkretes Problem genannt wurde: Erkläre kurz, ob und wie man das mit AI lösen könnte
-
-DEIN TON:
-- Wie ein hilfreicher Berater, der erklärt und nicht belehrt
-- Konkrete Beispiele statt abstrakte Aussagen
-- Ermutigend, nicht verurteilend
-- Ehrlich, wenn etwas nicht geht
-
-FORMAT:
-Antworte IMMER im folgenden JSON-Format:
-{
-  "summary": "Deine 2-3 Sätze Zusammenfassung hier",
-  "strengths": ["Stärke 1", "Stärke 2", "Stärke 3"],
-  "improvements": ["Verbesserung 1", "Verbesserung 2", "Verbesserung 3"],
-  "nextSteps": ["Schritt 1", "Schritt 2", "Schritt 3"],
-  "problemAnalysis": "Wenn ein Problem beschrieben wurde, deine Analyse hier. Sonst null"
-}
-
-Halte dich an maximal 350 Wörter insgesamt.`;
-
-interface GeminiResponse {
-  candidates?: Array<{
-    content?: {
-      parts?: Array<{
-        text?: string;
-      }>;
-    };
-  }>;
-  error?: {
-    message: string;
-  };
-}
-
 interface ParsedAnalysis {
   summary: string;
   strengths: string[];
@@ -71,61 +10,32 @@ interface ParsedAnalysis {
 }
 
 export async function getGeminiAnalysis(
-  results: QuizResults,
-  apiKey: string
+  results: QuizResults
 ): Promise<GeminiAnalysis> {
   const quizData = prepareDataForGemini(results);
 
-  const userPrompt = `Hier sind die Quiz-Ergebnisse eines Unternehmens:
-
-${JSON.stringify(quizData, null, 2)}
-
-Bitte analysiere diese Ergebnisse und gib deine Einschätzung ab.`;
-
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `${GEMINI_SYSTEM_PROMPT}\n\n${userPrompt}`,
-                },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 1024,
-          },
-        }),
-      }
-    );
+    const response = await fetch('/api/quiz/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quizData }),
+    });
 
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Server error: ${response.status}`);
     }
 
-    const data: GeminiResponse = await response.json();
+    const data = await response.json();
 
-    if (data.error) {
-      throw new Error(data.error.message);
+    if (!data.text) {
+      throw new Error('No response text');
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!text) {
-      throw new Error('No response from Gemini');
-    }
-
-    // Try to parse JSON from the response
-    const analysis = parseGeminiResponse(text);
+    // Parse the Gemini response
+    const analysis = parseGeminiResponse(data.text);
 
     return {
       summary: analysis.summary,
@@ -136,7 +46,7 @@ Bitte analysiere diese Ergebnisse und gib deine Einschätzung ab.`;
       isLoading: false,
     };
   } catch (error) {
-    console.error('Gemini API error:', error);
+    console.error('Analysis error:', error instanceof Error ? error.message : 'Unknown error');
     return {
       summary: '',
       strengths: [],
@@ -206,7 +116,7 @@ function parsePlainTextResponse(text: string): ParsedAnalysis {
     }
 
     // Extract bullet points
-    const bulletMatch = line.match(/^[\s]*[-•*]\s*(.+)/);
+    const bulletMatch = line.match(/^[\s]*[-\u2022*]\s*(.+)/);
     if (bulletMatch) {
       const content = bulletMatch[1].trim();
       switch (currentSection) {
