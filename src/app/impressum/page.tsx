@@ -30,7 +30,8 @@ export default function ImpressumPage() {
               <h2 className="text-xl font-semibold text-white mb-4">Kontakt</h2>
               <p>
                 E-Mail: <a href="mailto:support@skaile.de" className="text-[#A0F0FF] hover:underline">support@skaile.de</a><br />
-                Alternativ: <a href="mailto:sebastian@skaile.de" className="text-[#A0F0FF] hover:underline">sebastian@skaile.de</a>
+                Alternativ: <a href="mailto:sebastian@skaile.de" className="text-[#A0F0FF] hover:underline">sebastian@skaile.de</a><br />
+                Kontaktformular: <a href="/kontakt" className="text-[#A0F0FF] hover:underline">skaile.de/kontakt</a>
               </p>
             </section>
 

@@ -13,7 +13,7 @@ export default function DatenschutzPage() {
           <h1 className="text-3xl sm:text-4xl font-bold mb-8">Datenschutzerklärung</h1>
 
           <div className="prose prose-invert prose-gray max-w-none space-y-8 text-gray-300">
-            <p className="text-sm text-gray-500">Stand: Januar 2026</p>
+            <p className="text-sm text-gray-500">Stand: Februar 2026</p>
 
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">1. Verantwortlicher</h2>
@@ -50,56 +50,90 @@ export default function DatenschutzPage() {
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">3. Hosting und Server</h2>
               <p>
-                <strong className="text-white">Unsere Dienste werden ausschließlich auf Servern innerhalb der Europäischen Union gehostet.</strong>
+                Diese Website wird gehostet von <strong className="text-white">Vercel Inc.</strong> (440 N Barranca Ave #4133, Covina, CA 91723, USA).
+                Vercel ist zertifiziert unter dem EU-US Data Privacy Framework (DPF) und verarbeitet Daten
+                gemäß ihrer Datenschutzvereinbarung (DPA). Statische Inhalte werden über ein globales
+                Edge-Netzwerk ausgeliefert, wobei auch EU-Standorte genutzt werden.
               </p>
               <p className="mt-3">
-                Wir setzen bewusst auf EU-basierte Infrastruktur, um die Einhaltung der DSGVO zu gewährleisten.
-                Eine Übermittlung personenbezogener Daten in Drittländer (außerhalb der EU/EWR) findet nicht statt.
+                <strong className="text-white">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer
+                sicheren und effizienten Bereitstellung unserer Website).
+              </p>
+              <p className="mt-3">
+                <strong className="text-white">Drittlandtransfer:</strong> Vercel ist unter dem EU-US Data Privacy Framework
+                zertifiziert, was eine angemessene Datenschutzgarantie gemäß Art. 45 DSGVO darstellt.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">4. KI-Dienste und Datenverarbeitung</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">4. AI Readiness Quiz</h2>
+              <p>
+                Auf unserer Website bieten wir einen KI-Readiness-Check an. Dabei werden folgende Daten erhoben:
+              </p>
+
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.1 Erhobene Daten</h3>
+              <ul className="list-disc list-inside space-y-2 ml-4">
+                <li>Quiz-Antworten zu Geschäftsprozessen (keine personenbezogenen Daten im engeren Sinne)</li>
+                <li>Optional: Vorname, E-Mail-Adresse, Unternehmen, Telefonnummer (nur bei freiwilliger Angabe im Lead-Formular)</li>
+              </ul>
+
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.2 KI-Analyse durch Google Gemini</h3>
+              <p>
+                Die Quiz-Ergebnisse werden zur Erstellung einer personalisierten Auswertung an die{" "}
+                <strong className="text-white">Google Gemini API</strong> (Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA)
+                übermittelt. Dabei werden <strong className="text-white">ausschließlich die anonymisierten Quiz-Antworten</strong> übermittelt
+                {" "}&ndash; keine Namen, E-Mail-Adressen oder andere personenbezogene Daten.
+              </p>
+              <p className="mt-3">
+                <strong className="text-white">Drittlandtransfer:</strong> Google ist unter dem EU-US Data Privacy Framework
+                zertifiziert. Die Analyse-Ergebnisse werden als KI-generiert gekennzeichnet.
+              </p>
+
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.3 E-Mail-Versand der Ergebnisse</h3>
+              <p>
+                Wenn Sie sich entscheiden, Ihre Ergebnisse per E-Mail zu erhalten, nutzen wir den Dienst{" "}
+                <strong className="text-white">Resend</strong> (USA) für den E-Mail-Versand. Resend ist unter dem
+                EU-US Data Privacy Framework zertifiziert und DSGVO-konform.
+              </p>
+              <ul className="list-disc list-inside space-y-2 ml-4 mt-3">
+                <li><strong>Erhobene Daten:</strong> E-Mail-Adresse, Vorname</li>
+                <li><strong>Zweck:</strong> Einmaliger Versand der Quiz-Ergebnisse</li>
+                <li><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Ihre Einwilligung)</li>
+              </ul>
+
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.4 Rechtsgrundlage</h3>
+              <p>
+                Die Verarbeitung im Rahmen des Quiz erfolgt auf Grundlage von:
+              </p>
+              <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
+                <li>Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) &ndash; durch Akzeptieren der Datenschutzerklärung im Quiz</li>
+                <li>Berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) &ndash; für die anonymisierte Auswertung der Quiz-Antworten</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-white mb-4">5. KI-Dienstleistungen für Kunden</h2>
               <p>
                 Wir bieten KI-gestützte Beratungs- und Automatisierungsdienstleistungen an. Dabei beachten wir
                 folgende Grundsätze:
               </p>
 
-              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.1 EU-gehostete KI-Modelle</h3>
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">5.1 Kundenprojekte und Automatisierungen</h3>
               <p>
-                <strong className="text-white">Wir verwenden ausschließlich KI-Modelle, die auf EU-Servern gehostet werden.</strong>{" "}
-                Dies stellt sicher, dass Ihre Daten die Europäische Union nicht verlassen und vollständig
-                DSGVO-konform verarbeitet werden.
+                Für unsere Kundenprojekte setzen wir auf EU-gehostete Infrastruktur und DSGVO-konforme
+                Automatisierungstools. Die konkrete Datenverarbeitung wird im jeweiligen Auftragsverarbeitungsvertrag (AVV)
+                mit dem Kunden geregelt.
               </p>
 
-              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.2 Zweck der KI-Verarbeitung</h3>
-              <ul className="list-disc list-inside space-y-2 ml-4">
-                <li>Analyse und Optimierung von Geschäftsprozessen</li>
-                <li>Automatisierung von Workflows</li>
-                <li>Beantwortung von Kundenanfragen (bei entsprechenden Projekten)</li>
-                <li>Dokumentenanalyse und -verarbeitung</li>
-              </ul>
-
-              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.3 KI-Verordnung (AI Act) Compliance</h3>
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">5.2 KI-Verordnung (AI Act) Compliance</h3>
               <p>
                 Gemäß der EU KI-Verordnung (Verordnung (EU) 2024/1689) kennzeichnen wir KI-generierte Inhalte
                 entsprechend und führen bei Hochrisiko-Anwendungen die erforderlichen Konformitätsbewertungen durch.
-                Unsere KI-Systeme werden regelmäßig auf Fairness, Transparenz und Sicherheit geprüft.
               </p>
-
-              <h3 className="text-lg font-medium text-white mt-6 mb-3">4.4 Rechtsgrundlage</h3>
-              <p>
-                Die Verarbeitung erfolgt auf Grundlage von:
-              </p>
-              <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
-                <li>Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)</li>
-                <li>Erfüllung eines Vertrags (Art. 6 Abs. 1 lit. b DSGVO)</li>
-                <li>Berechtigten Interessen (Art. 6 Abs. 1 lit. f DSGVO) – sofern keine überwiegenden Interessen entgegenstehen</li>
-              </ul>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">5. Kontaktaufnahme</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">6. Kontaktaufnahme</h2>
               <p>
                 Wenn Sie uns per E-Mail oder über ein Kontaktformular kontaktieren, werden Ihre Angaben
                 zur Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert.
@@ -112,7 +146,24 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">6. Speicherdauer</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">7. Auftragsverarbeiter (Drittanbieter)</h2>
+              <p>
+                Wir setzen folgende Drittanbieter als Auftragsverarbeiter ein:
+              </p>
+              <ul className="list-disc list-inside space-y-3 ml-4 mt-3">
+                <li><strong>Vercel Inc.</strong> (USA) &ndash; Website-Hosting und -Bereitstellung. DPF-zertifiziert.</li>
+                <li><strong>Google LLC</strong> (USA) &ndash; Gemini API für KI-Analyse im Quiz. DPF-zertifiziert.</li>
+                <li><strong>Resend</strong> (USA) &ndash; E-Mail-Versand der Quiz-Ergebnisse. DPF-zertifiziert, SOC 2 konform.</li>
+              </ul>
+              <p className="mt-3">
+                Alle genannten Anbieter sind unter dem EU-US Data Privacy Framework zertifiziert, welches
+                gemäß Angemessenheitsbeschluss der EU-Kommission vom 10. Juli 2023 ein angemessenes
+                Datenschutzniveau gewährleistet.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-white mb-4">8. Speicherdauer</h2>
               <p>
                 Wir speichern Ihre personenbezogenen Daten nur so lange, wie es für die jeweiligen Zwecke
                 erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen:
@@ -125,7 +176,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">7. Ihre Rechte</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">9. Ihre Rechte</h2>
               <p>Sie haben folgende Rechte bezüglich Ihrer personenbezogenen Daten:</p>
               <ul className="list-disc list-inside space-y-2 ml-4 mt-3">
                 <li><strong>Auskunft (Art. 15 DSGVO):</strong> Sie können Auskunft über Ihre gespeicherten Daten verlangen</li>
@@ -145,7 +196,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">8. Datensicherheit</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">10. Datensicherheit</h2>
               <p>
                 Wir setzen technische und organisatorische Sicherheitsmaßnahmen (TOMs) ein, um Ihre Daten gegen
                 Manipulation, Verlust oder unberechtigten Zugriff zu schützen:
@@ -160,7 +211,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">9. Cookies</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">11. Cookies</h2>
               <p>
                 Wir verwenden nur technisch notwendige Cookies für die Funktionalität unserer Website.
                 Es findet kein Tracking zu Werbezwecken statt. Analyse-Cookies werden nur mit Ihrer
@@ -169,7 +220,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">10. Kontakt für Datenschutzanfragen</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">12. Kontakt für Datenschutzanfragen</h2>
               <p>
                 Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte erreichen Sie uns unter:<br />
                 <a href="mailto:support@skaile.de" className="text-[#A0F0FF] hover:underline">support@skaile.de</a>
@@ -177,7 +228,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold text-white mb-4">11. Änderungen dieser Datenschutzerklärung</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">13. Änderungen dieser Datenschutzerklärung</h2>
               <p>
                 Wir behalten uns vor, diese Datenschutzerklärung anzupassen, um sie an geänderte Rechtslagen
                 (insbesondere bei Änderungen der DSGVO oder der KI-Verordnung) oder bei Änderungen unserer

@@ -13,7 +13,7 @@ export default function AGBPage() {
           <h1 className="text-3xl sm:text-4xl font-bold mb-8">Allgemeine Geschäftsbedingungen (AGB)</h1>
 
           <div className="prose prose-invert prose-gray max-w-none space-y-8 text-gray-300">
-            <p className="text-sm text-gray-500">Stand: Januar 2026</p>
+            <p className="text-sm text-gray-500">Stand: Februar 2026</p>
 
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">1. Geltungsbereich</h2>
@@ -90,11 +90,13 @@ export default function AGBPage() {
                 <li>KI-Empfehlungen ersetzen keine professionelle Beratung (rechtlich, medizinisch, steuerlich)</li>
               </ul>
 
-              <h3 className="text-lg font-medium text-white mt-6 mb-3">5.2 Datenschutz & EU-Hosting</h3>
+              <h3 className="text-lg font-medium text-white mt-6 mb-3">5.2 Datenschutz & Datenverarbeitung</h3>
               <p>
-                <strong className="text-white">Wir setzen ausschließlich EU-gehostete KI-Modelle ein.</strong>{" "}
-                Kundendaten verlassen nicht die Europäische Union. Die Verarbeitung erfolgt vollständig
-                DSGVO-konform. Details finden Sie in unserer{" "}
+                Für Kundenprojekte und Automatisierungen setzen wir auf EU-gehostete Infrastruktur und
+                DSGVO-konforme Tools. Auf dieser Website nutzen wir zur KI-Analyse im AI Readiness Quiz
+                die Google Gemini API (USA, DPF-zertifiziert). Es werden dabei ausschließlich anonymisierte
+                Quiz-Antworten übermittelt &ndash; keine personenbezogenen Daten.
+                Details finden Sie in unserer{" "}
                 <a href="/datenschutz" className="text-[#A0F0FF] hover:underline">Datenschutzerklärung</a>.
               </p>
 
@@ -185,8 +187,10 @@ export default function AGBPage() {
               <h2 className="text-xl font-semibold text-white mb-4">11. Änderungen der AGB</h2>
               <p>
                 Der Anbieter behält sich vor, diese AGB zu ändern. Änderungen werden dem Kunden
-                per E-Mail mitgeteilt. Widerspricht der Kunde nicht innerhalb von 4 Wochen nach
-                Zugang der Änderungsmitteilung, gelten die geänderten AGB als genehmigt.
+                mindestens 6 Wochen vor Inkrafttreten per E-Mail mitgeteilt. Der Kunde hat das Recht,
+                den Änderungen zu widersprechen. Im Falle eines Widerspruchs gelten die bisherigen
+                AGB fort. Beide Parteien haben dann ein Sonderkündigungsrecht zum Zeitpunkt des
+                geplanten Inkrafttretens der Änderungen.
               </p>
             </section>
 
