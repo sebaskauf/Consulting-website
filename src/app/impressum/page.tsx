@@ -18,7 +18,8 @@ export default function ImpressumPage() {
             <section>
               <h2 className="text-xl font-semibold text-white mb-4">Anbieter und Verantwortlicher</h2>
               <p>
-                <strong className="text-white">Vibe Consulting</strong><br />
+                <strong className="text-white">Skaile AI Consulting</strong><br />
+                Inhaber:
                 Sebastian Kauffmann<br />
                 Namedorfstraße 5<br />
                 30539 Hannover<br />
