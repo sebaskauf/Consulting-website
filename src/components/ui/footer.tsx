@@ -12,6 +12,7 @@ export function Footer() {
     { title: "Impressum", href: "/impressum" },
     { title: "Datenschutz", href: "/datenschutz" },
     { title: "AGB", href: "/agb" },
+    { title: "Widerruf", href: "/widerruf" },
   ];
 
   const resources = [

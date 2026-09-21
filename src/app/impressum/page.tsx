@@ -45,6 +45,22 @@ export default function ImpressumPage() {
             </section>
 
             <section>
+              <h2 className="text-xl font-semibold text-white mb-4">Umsatzsteuer-Identifikationsnummer</h2>
+              <p>
+                Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: DE460605423
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-white mb-4">Widerrufsrecht</h2>
+              <p>
+                Verbraucher haben bei online geschlossenen Verträgen ein 14-tägiges Widerrufsrecht.
+                Die Belehrung und das Muster-Widerrufsformular findest du unter{" "}
+                <a href="/widerruf" className="text-[#A0F0FF] hover:underline">skaile.de/widerruf</a>.
+              </p>
+            </section>
+
+            <section>
               <h2 className="text-xl font-semibold text-white mb-4">EU-Streitschlichtung</h2>
               <p>
                 Die Europäische Kommission hat ihre Plattform zur Online-Streitbeilegung (OS-Plattform)
