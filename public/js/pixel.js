@@ -177,7 +177,7 @@
   function paintSprite(cv, hover) {
     const def = SPRITES[cv.dataset.sprite];
     const s = clawd({ acc: def.acc, eyes: hover ? "happy" : def.eyes });
-    const px = Number(cv.dataset.px || 4);
+    const px = Number((window.innerWidth < 600 && cv.dataset.pxSm) || cv.dataset.px || 4);
     // gemeinsamer Rahmen, damit alle Sprites auf derselben Bodenlinie stehen
     const W = 28, H = 16;
     cv.width = W; cv.height = H;
@@ -347,10 +347,11 @@
       // Haare auf Höhe der Überschrift. Ist der Text kürzer als der Körper, endet der Körper genau
       // auf der Linie zur nächsten Sektion, sonst steht er auf seinem eigenen Boden
       const pb = parseFloat(getComputedStyle(hero).paddingBottom) || 0;
-      const textBottom = Math.max(...parts.map((r) => r.bottom)) + window.scrollY;
+      const textH = Math.max(...parts.map((r) => r.bottom)) - Math.min(...parts.map((r) => r.top));
       const bodyBottom = y0 + solidBH * px;
-      onLine = bodyBottom >= textBottom + pb;
-      grid.style.minHeight = onLine ? bodyBottom - pb - y0 + "px" : "";
+      onLine = solidBH * px >= textH + pb;
+      grid.style.minHeight = onLine ? solidBH * px - pb + "px" : "";   // der Text steht dann mittig neben dem Porträt
+      const textBottom = y0 + Math.max(textH, solidBH * px - pb);
       const right = Math.min(B, Math.max(A + reach * px, gr.right - gut + 96));   // gern etwas über den Inhaltsrand hinaus
       fig.style.left = right - COLS * px - gr.left + "px";
       fig.style.top = bodyBottom - (TOP + solidBH) * px - y0 + "px";
@@ -415,64 +416,42 @@
     io.observe(box);
   }
 
-  /* ---------- Academy: jedes Kästchen ein Mitglied, das orange ist der freie Platz ---------- */
-  function crowd() {
-    const cv = document.querySelector(".crowd-grid");
-    if (!cv) return;
-    const n = Number(cv.dataset.n);
-    const ctx = cv.getContext("2d");
-    let cols = 1, s = 9, g = 3, shown = reduce ? n : 0, seat = true;
-    // Reihenfolge, in der die Kästchen erscheinen: grob von links nach rechts, mit Zufall
-    let seed = 11;
-    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    let order = [];
-    function layout() {
-      const w = cv.parentElement.clientWidth;
-      s = w < 600 ? 6 : 9; g = w < 600 ? 2 : 3;
-      cols = Math.max(10, Math.floor((w + g) / (s + g)));
-      const rows = Math.ceil((n + 1) / cols);
-      const W = cols * (s + g) - g, H = rows * (s + g) - g, dpr = window.devicePixelRatio || 1;
-      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-      cv.style.width = W + "px"; cv.style.height = H + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      seed = 11;
-      order = Array.from({ length: n }, (_, i) => ({ i, k: (i % cols) / cols + rnd() * 0.35 })).sort((a, b) => a.k - b.k).map((o) => o.i);
-      draw();
+  /* ---------- Academy: Karten schieben sich beim Scrollen übereinander ---------- */
+  function stack() {
+    const cards = [...document.querySelectorAll(".stack-card")];
+    if (!cards.length) return;
+    // Karten, die höher sind als der Bildschirm, kleben nicht fest, sonst wäre ihr unteres Ende nie lesbar
+    function fit() {
+      cards.forEach((c) => {
+        c.classList.remove("no-stick");
+        const top = parseFloat(getComputedStyle(c).top) || 0;
+        if (c.offsetHeight > window.innerHeight - top - 12) c.classList.add("no-stick");
+      });
     }
-    function cell(i) { return [(i % cols) * (s + g), Math.floor(i / cols) * (s + g)]; }
-    function draw() {
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      ctx.fillStyle = cssVar("--ink");
-      for (let k = 0; k < shown; k++) { const [x, y] = cell(order[k]); ctx.fillRect(x, y, s, s); }
-      if (shown >= n && seat) { const [x, y] = cell(n); ctx.fillStyle = cssVar("--accent"); ctx.fillRect(x, y, s, s); }
+    fit();
+    window.addEventListener("resize", fit, { passive: true });
+    if (reduce) return;
+    let ticking = false;
+    function update() {
+      ticking = false;
+      cards.forEach((c, i) => {
+        const next = cards[i + 1];
+        let u = 0;   // 0 = frei, 1 = von der nächsten Karte ganz verdeckt
+        if (next) {
+          const top = c.getBoundingClientRect().top, nt = next.getBoundingClientRect().top;
+          u = Math.min(1, Math.max(0, 1 - (nt - top) / c.offsetHeight));
+        }
+        c.style.setProperty("--cover", u.toFixed(3));
+      });
     }
-    layout();
-    let rt;
-    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(layout, 120); }, { passive: true });
-    if (reduce || !("IntersectionObserver" in window)) { shown = n; draw(); return; }
-    const io = new IntersectionObserver((es) => {
-      if (!es.some((e) => e.isIntersecting)) return;
-      io.disconnect();
-      const t0 = performance.now(), DUR = 1600;
-      const tick = (now) => {
-        const u = Math.min(1, (now - t0) / DUR);
-        shown = Math.round(n * (1 - Math.pow(1 - u, 2)));
-        draw();
-        if (u < 1) requestAnimationFrame(tick);
-        else setInterval(() => {   // der freie Platz blinkt kurz, wie ein Cursor
-          if (document.hidden) return;
-          seat = false; draw();
-          setTimeout(() => { seat = true; draw(); }, 380);
-        }, 1500);
-      };
-      requestAnimationFrame(tick);
-    }, { threshold: 0.3 });
-    io.observe(cv);
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
   }
 
   function init() {
     hero();
-    crowd();
+    stack();
     document.querySelectorAll(".px-word").forEach(paintWord);
     document.querySelectorAll(".px-sprite").forEach((cv) => {
       paintSprite(cv, false);
