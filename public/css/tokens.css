@@ -1,0 +1,63 @@
+/* Farben, Schriften und Maße nach Rolle. Eigene Palette = nur diese Datei ändern. */
+@font-face {
+  font-family: "Newsreader";
+  src: url("../assets/fonts/newsreader-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Newsreader";
+  src: url("../assets/fonts/newsreader-latin-wght-italic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../assets/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Papier */
+  --bg: #f4f1ea;
+  --surface: #fbfaf6;
+  --tint: #ebe6da;
+  --ink: #191714;
+  --body: #39352e;
+  --muted: #5d574d;
+  --faint: #655f55;
+  --line: #ddd6c8;
+  --line-strong: #bfb5a2;
+
+  /* der eine Akzent: Claude-Orange, nur Flächen und Pixel, nie Fließtext */
+  --accent: #d97757;
+  --accent-light: #ec9a7c;
+  --accent-dark: #a9533a;
+  --on-accent: #191714;
+
+  /* Nacht-Sektion */
+  --night: #191714;
+  --night-surface: #221f1b;
+  --night-ink: #f4f1ea;
+  --night-body: #d6cfc2;
+  --night-muted: #a59d8f;
+  --night-line: #3a352e;
+
+  --focus: var(--ink);
+  --selection-bg: var(--accent);
+  --selection-text: var(--on-accent);
+
+  /* Schriften: Serif spricht, Mono bedient, Pixel zeigen */
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Maße */
+  --gutter: clamp(16px, 3vw, 40px);
+  --max: 1240px;
+  --section-y: clamp(88px, 11vw, 156px);
+  --notch: 4px; /* Pixel-Ecke an Buttons und Karten */
+}

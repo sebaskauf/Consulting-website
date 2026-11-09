@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-// Modern, elegant font - clean and professional
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
+// Die eigentliche Seite liegt statisch in public/ (index.html + Rechtsseiten).
+// Dieses Layout rendert nur noch die 404-Seite.
 export const metadata: Metadata = {
-  title: "Skaile AI - KI-Entwicklung für Ihr Unternehmen",
-  description: "Maßgeschneiderte KI-Lösungen, Automatisierung und intelligente Prozessoptimierung für nachhaltiges Wachstum.",
+  title: "Seite nicht gefunden · SKAILE",
+  robots: { index: false },
 };
 
 export default function RootLayout({
@@ -22,9 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className={`${plusJakartaSans.variable} antialiased`}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
