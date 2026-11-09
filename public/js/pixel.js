@@ -44,6 +44,50 @@
       return p;
     },
     wave: () => [[16, 4, "body"], [16, 3, "body"], [17, 2, "body"], [17, 1, "light"]],
+    camera: () => {
+      const p = [];
+      for (let x = 17; x <= 23; x++) for (let y = 4; y <= 8; y++) p.push([x, y, "ink"]);
+      p.push([18, 3, "ink"], [19, 3, "ink"]);
+      for (let x = 19; x <= 21; x++) for (let y = 5; y <= 7; y++) p.push([x, y, "metal"]);
+      p.push([20, 6, "screen"], [22, 5, "body"]);
+      return p;
+    },
+    server: () => {
+      const p = [];
+      for (let x = 18; x <= 23; x++) for (let y = 0; y <= 10; y++) p.push([x, y, (x === 18 || x === 23 || y === 0 || y === 10) ? "ink" : "metalDark"]);
+      [3, 6, 9].forEach((y) => { for (let x = 19; x <= 22; x++) p.push([x, y, "ink"]); });
+      [1, 4, 7].forEach((y) => p.push([21, y, "body"], [22, y, "light"]));
+      return p;
+    },
+    mask: () => {
+      const p = [];
+      for (let x = 2; x <= 13; x++) p.push([x, 4, "ink"], [x, 5, "ink"]);
+      p.push([0, 3, "ink"], [1, 4, "ink"], [0, 6, "ink"]);
+      [[5, 4], [5, 5], [10, 4], [10, 5]].forEach(([x, y]) => p.push([x, y, "screen"]));
+      return p;
+    },
+    book: () => {
+      const p = [];
+      for (let x = 17; x <= 22; x++) for (let y = 3; y <= 9; y++) p.push([x, y, x === 17 ? "ink" : y === 3 || y === 9 ? "boxDark" : "box"]);
+      for (let y = 5; y <= 7; y += 2) for (let x = 19; x <= 21; x++) p.push([x, y, "boxDark"]);
+      return p;
+    },
+    bolt: () => [[20, 1, "light"], [19, 2, "light"], [18, 3, "body"], [17, 4, "body"], [18, 4, "body"], [19, 4, "body"], [20, 4, "body"], [19, 5, "body"], [18, 6, "dark"], [17, 7, "dark"]],
+    gear: () => {
+      const p = [];
+      for (let x = 17; x <= 23; x++) for (let y = 3; y <= 9; y++) {
+        const dx = x - 20, dy = y - 6, r = Math.max(Math.abs(dx), Math.abs(dy));
+        if (r === 3 && (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) p.push([x, y, "metal"]);
+        else if (r <= 2 && r >= 1) p.push([x, y, "metalDark"]);
+      }
+      return p;
+    },
+    phone: () => {
+      const p = [];
+      for (let x = 17; x <= 21; x++) for (let y = 2; y <= 10; y++) p.push([x, y, (x === 17 || x === 21 || y === 2 || y === 10) ? "ink" : "screen"]);
+      p.push([18, 4, "body"], [19, 4, "body"], [20, 4, "body"], [18, 6, "light"], [19, 6, "light"], [19, 9, "ink"]);
+      return p;
+    },
     laptop: () => {
       const p = [];
       for (let x = 17; x <= 23; x++) for (let y = 4; y <= 8; y++) p.push([x, y, (x === 17 || x === 23 || y === 4 || y === 8) ? "ink" : "screen"]);
@@ -147,17 +191,26 @@
     teacher: { acc: ["glasses", "pointer"] },
     builder: { acc: ["hammer"] },
     loop: { acc: ["box"] },
+    os: { acc: ["laptop"] },
+    content: { acc: ["camera"] },
+    hermes: { acc: ["server"] },
+    faceless: { acc: ["mask"] },
+    book: { acc: ["book"] },
+    bolt: { acc: ["bolt"] },
+    gear: { acc: ["gear"] },
+    phone: { acc: ["phone"] },
   };
   function paintSprite(cv, hover) {
     const def = SPRITES[cv.dataset.sprite];
     const s = clawd({ acc: def.acc, eyes: hover ? "happy" : def.eyes });
-    const px = Number(cv.dataset.px || 4);
+    const px = Number((window.innerWidth < 600 && cv.dataset.pxSm) || cv.dataset.px || 4);
     // gemeinsamer Rahmen, damit alle Sprites auf derselben Bodenlinie stehen
     const W = 28, H = 16;
     cv.width = W; cv.height = H;
     const ctx = cv.getContext("2d");
     ctx.clearRect(0, 0, W, H);
-    drawAt(ctx, s, Math.round(W / 2 - 8), H - 1);
+    // mittig, aber so, dass Zubehör links oder rechts nicht abgeschnitten wird
+    drawAt(ctx, s, Math.max(s.ox, Math.min(Math.round(W / 2 - 8), W - 1 - (s.w - 1 - s.ox))), H - 1);
     cv.style.width = W * px + "px";
     cv.style.height = H * px + "px";
   }
@@ -226,8 +279,13 @@
 
     let blinkA = false, blinkB = false;
     const c = colors();
+    // Desktop: Porträt groß, Körper endet auf der Linie zur Academy, der Auslauf fällt in die nächste Sektion
+    const desk = window.matchMedia("(min-width: 901px)");
+    const SHOULDER = Math.min(...P.rows.map((r) => r.search(/[^.]/)).filter((i) => i >= 0));
 
+    let onLine = false;   // Desktop: Körper endet genau auf der Linie zur nächsten Sektion
     function floor() {
+      if (onLine) return;   // dann steht der Laptop-Claude auf dieser Linie
       ctx.fillStyle = cssVar("--line-strong");
       for (let x = 0; x < bx - 3; x += 3) ctx.fillRect(x, helperFoot + 1, 2, 1);
     }
@@ -281,17 +339,58 @@
       }
     }
 
-    function layout() {
-      const avail = fig.clientWidth;
-      // ganzzahlig, solange es passt; auf schmalen Schirmen stufenlos (hohe Pixeldichte hält es scharf)
-      let px = Math.floor(avail / COLS);
-      if (px < 2) px = avail / COLS;
+    const grid = fig.parentElement, bar = fig.querySelector(".stage-bar");
+    function size(px) {
       cv.style.width = COLS * px + "px";
       cv.style.height = ROWS * px + "px";
       fig.querySelector(".stage-box").style.width = COLS * px + "px";
     }
+    function layout() {
+      const hero = grid.closest(".hero"), next = hero.nextElementSibling;
+      if (next) next.style.paddingTop = "";
+      onLine = false;
+      if (!desk.matches) {
+        fig.style.left = fig.style.top = bar.style.right = bar.style.top = grid.style.minHeight = "";
+        const avail = fig.clientWidth;
+        // ganzzahlig, solange es passt; auf schmalen Schirmen stufenlos (hohe Pixeldichte hält es scharf)
+        let px = Math.floor(avail / COLS);
+        if (px < 2) px = avail / COLS;
+        size(px);
+        return;
+      }
+      // so groß, dass die Schultern neben den Text passen und der Körper ganz im ersten Bildschirm steht;
+      // halbe Stufen nur bei hoher Pixeldichte
+      const dpr = window.devicePixelRatio || 1;
+      const gr = grid.getBoundingClientRect(), y0 = gr.top + window.scrollY;
+      const gut = parseFloat(getComputedStyle(grid).paddingRight) || 24;
+      const parts = [".hero-head", ".hero-body"].map((s) => grid.querySelector(s).getBoundingClientRect());
+      const A = Math.max(...parts.map((r) => r.right)) + 24;     // ab hier dürfen die Schultern anfangen
+      const B = document.documentElement.clientWidth - gut;       // weiter rechts nicht
+      const reach = COLS - LEFT - SHOULDER;
+      let px = Math.min((B - A) / reach, (window.innerHeight - 24 - y0) / solidBH, 6);
+      px = Math.max(2, Math.floor(px * dpr) / dpr);
+      size(px);
+      // Haare auf Höhe der Überschrift. Ist der Text kürzer als der Körper, endet der Körper genau
+      // auf der Linie zur nächsten Sektion, sonst steht er auf seinem eigenen Boden
+      const pb = parseFloat(getComputedStyle(hero).paddingBottom) || 0;
+      const textH = Math.max(...parts.map((r) => r.bottom)) - Math.min(...parts.map((r) => r.top));
+      const bodyBottom = y0 + solidBH * px;
+      onLine = solidBH * px >= textH + pb;
+      grid.style.minHeight = onLine ? solidBH * px - pb + "px" : "";   // der Text steht dann mittig neben dem Porträt
+      const textBottom = y0 + Math.max(textH, solidBH * px - pb);
+      const right = Math.min(B, Math.max(A + reach * px, gr.right - gut + 96));   // gern etwas über den Inhaltsrand hinaus
+      fig.style.left = right - COLS * px - gr.left + "px";
+      fig.style.top = bodyBottom - (TOP + solidBH) * px - y0 + "px";
+      // der Pixel-Auslauf fällt in die nächste Sektion, deren Inhalt bleibt frei
+      const over = ((P.fade || 0) + FLOOR) * px;
+      const heroBottom = Math.max(bodyBottom, textBottom + pb), spill = bodyBottom + over + 40 - heroBottom;
+      if (next && parseFloat(getComputedStyle(next).paddingTop) < spill + 48) next.style.paddingTop = spill + 48 + "px";
+      // Bildunterschrift unter dem Auslauf, rechtsbündig mit dem Porträt
+      bar.style.right = (COLS - LEFT - BW) * px + "px";
+      bar.style.top = "calc(100% + 12px)";
+    }
     layout();
-    window.addEventListener("resize", () => { layout(); }, { passive: true });
+    window.addEventListener("resize", () => { layout(); if (finished) frame(1e9); }, { passive: true });
 
     const END = BUILD + 80 + 520;
     let finished = reduce;
@@ -324,35 +423,76 @@
 
   }
 
-  /* ---------- Lektionspixel: drucken, sobald sichtbar ---------- */
-  function lessons() {
-    document.querySelectorAll(".ph-px[data-n]").forEach((el, p) => {
-      const n = Number(el.dataset.n);
-      for (let i = 0; i < n; i++) {
-        const sq = document.createElement("i");
-        sq.style.setProperty("--k", i + p * 3);
-        el.appendChild(sq);
-      }
-    });
-    const box = document.querySelector(".path");
+  /* ---------- Academy: der Pfad füllt sich beim Scrollen, erreichte Module leuchten auf ---------- */
+  function path() {
+    const list = document.querySelector(".mods");
+    if (!list) return;
+    const mods = [...list.querySelectorAll(".mod")];
+    const icons = mods.map((m) => m.querySelector(".px-sprite"));
+    let ticking = false;
+    function update() {
+      ticking = false;
+      const r = list.getBoundingClientRect();
+      // Fortschritt = wie weit die Linie bei 60 % der Bildschirmhöhe in der Liste steht
+      const y = reduce ? r.height : Math.min(r.height, Math.max(0, window.innerHeight * 0.6 - r.top));
+      list.style.setProperty("--prog", Math.min(1, Math.max(0, (y - 40) / Math.max(1, r.height - 80))).toFixed(4));
+      mods.forEach((m, i) => {
+        const mr = m.getBoundingClientRect();
+        const done = mr.top - r.top + mr.height / 2 <= y;
+        if (done !== m.classList.contains("is-done")) { m.classList.toggle("is-done", done); paintSprite(icons[i], done); }
+      });
+    }
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
+  /* ---------- Kanäle: Videos mit Pfeilen blättern, mit der Maus ziehbar ---------- */
+  function reel() {
+    const box = document.querySelector(".reel");
     if (!box) return;
-    if (reduce || !("IntersectionObserver" in window)) { box.classList.add("is-on"); return; }
-    const io = new IntersectionObserver((es) => {
-      if (es.some((e) => e.isIntersecting)) { box.classList.add("is-on"); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(box);
+    const btns = [...document.querySelectorAll(".reel-btn")];
+    const card = () => { const li = box.querySelector(".reel-track li"); return li ? li.offsetWidth + parseFloat(getComputedStyle(li.parentElement).columnGap || 0) : 300; };
+    function state() {
+      const max = box.scrollWidth - box.clientWidth - 2;
+      btns.forEach((b) => { b.disabled = b.dataset.dir === "-1" ? box.scrollLeft <= 2 : box.scrollLeft >= max; });
+    }
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const step = Math.max(card(), Math.floor(box.clientWidth / card()) * card());   // so viele Videos weiter, wie gerade zu sehen sind
+      box.scrollBy({ left: Number(b.dataset.dir) * step, behavior: reduce ? "auto" : "smooth" });
+    }));
+    box.addEventListener("scroll", () => requestAnimationFrame(state), { passive: true });
+    window.addEventListener("resize", state, { passive: true });
+    state();
+    // Maus: ziehen wie auf dem Handy, ein Zug löst keinen Klick aus
+    let drag = null, moved = false;
+    box.addEventListener("pointerdown", (e) => { if (e.pointerType === "mouse" && e.button === 0) { drag = { x: e.clientX, s: box.scrollLeft }; moved = false; } });
+    window.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (Math.abs(dx) > 4) { moved = true; box.classList.add("is-drag"); }
+      box.scrollLeft = drag.s - dx;
+    });
+    window.addEventListener("pointerup", () => {
+      if (!drag) return;
+      drag = null;
+      box.classList.remove("is-drag");   // rastet wieder auf ein Video ein
+    });
+    box.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
+    box.addEventListener("dragstart", (e) => e.preventDefault());
   }
 
   function init() {
     hero();
+    path();
+    reel();
     document.querySelectorAll(".px-word").forEach(paintWord);
     document.querySelectorAll(".px-sprite").forEach((cv) => {
       paintSprite(cv, false);
       const host = cv.closest("li, .offer-side") || cv;
       host.addEventListener("mouseenter", () => paintSprite(cv, true));
-      host.addEventListener("mouseleave", () => paintSprite(cv, false));
+      host.addEventListener("mouseleave", () => paintSprite(cv, host.classList.contains("is-done")));
     });
-    lessons();
     let rt;
     window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => document.querySelectorAll(".px-word-big").forEach(paintWord), 120); }, { passive: true });
     // Footer-Tamagotchi blinzelt selten
