@@ -447,57 +447,39 @@
     update();
   }
 
-  /* ---------- Kanäle: Video-Laufband, endlos, mit Maus ziehbar ---------- */
+  /* ---------- Kanäle: Videos mit Pfeilen blättern, mit der Maus ziehbar ---------- */
   function reel() {
     const box = document.querySelector(".reel");
     if (!box) return;
-    const track = box.querySelector(".reel-track");
-    const items = [...track.children];
-    // einmal duplizieren für die Endlosschleife; die Kopie ist für Screenreader und Tastatur unsichtbar
-    items.forEach((li) => {
-      const c = li.cloneNode(true);
-      c.setAttribute("aria-hidden", "true");
-      c.querySelectorAll("a").forEach((a) => { a.tabIndex = -1; });
-      track.appendChild(c);
-    });
-    const setW = () => track.children[items.length].offsetLeft - items[0].offsetLeft;
-    box.addEventListener("scroll", () => {
-      const w = setW();
-      if (box.scrollLeft >= w) box.scrollLeft -= w;
-      else if (box.scrollLeft < 1 && drag) box.scrollLeft += w;
-    }, { passive: true });
+    const btns = [...document.querySelectorAll(".reel-btn")];
+    const card = () => { const li = box.querySelector(".reel-track li"); return li ? li.offsetWidth + parseFloat(getComputedStyle(li.parentElement).columnGap || 0) : 300; };
+    function state() {
+      const max = box.scrollWidth - box.clientWidth - 2;
+      btns.forEach((b) => { b.disabled = b.dataset.dir === "-1" ? box.scrollLeft <= 2 : box.scrollLeft >= max; });
+    }
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const step = Math.max(card(), Math.floor(box.clientWidth / card()) * card());   // so viele Videos weiter, wie gerade zu sehen sind
+      box.scrollBy({ left: Number(b.dataset.dir) * step, behavior: reduce ? "auto" : "smooth" });
+    }));
+    box.addEventListener("scroll", () => requestAnimationFrame(state), { passive: true });
+    window.addEventListener("resize", state, { passive: true });
+    state();
     // Maus: ziehen wie auf dem Handy, ein Zug löst keinen Klick aus
     let drag = null, moved = false;
     box.addEventListener("pointerdown", (e) => { if (e.pointerType === "mouse" && e.button === 0) { drag = { x: e.clientX, s: box.scrollLeft }; moved = false; } });
     window.addEventListener("pointermove", (e) => {
       if (!drag) return;
       const dx = e.clientX - drag.x;
-      if (Math.abs(dx) > 4) moved = true;
+      if (Math.abs(dx) > 4) { moved = true; box.classList.add("is-drag"); }
       box.scrollLeft = drag.s - dx;
     });
-    window.addEventListener("pointerup", () => { drag = null; });
+    window.addEventListener("pointerup", () => {
+      if (!drag) return;
+      drag = null;
+      box.classList.remove("is-drag");   // rastet wieder auf ein Video ein
+    });
     box.addEventListener("click", (e) => { if (moved) { e.preventDefault(); moved = false; } }, true);
     box.addEventListener("dragstart", (e) => e.preventDefault());
-    if (reduce) return;
-    let hold = 0, visible = false, last = 0, acc = 0;
-    const pause = (ms) => { hold = Math.max(hold, performance.now() + ms); };
-    box.addEventListener("mouseenter", () => { hold = Infinity; });
-    box.addEventListener("mouseleave", () => { hold = performance.now() + 500; });
-    box.addEventListener("focusin", () => { hold = Infinity; });
-    box.addEventListener("focusout", () => { hold = performance.now() + 1500; });
-    box.addEventListener("touchstart", () => pause(3000), { passive: true });
-    box.addEventListener("wheel", () => pause(2500), { passive: true });
-    new IntersectionObserver((es) => { visible = es.some((e) => e.isIntersecting); }).observe(box);
-    const tick = (now) => {
-      const dt = Math.min(64, now - (last || now));
-      last = now;
-      if (visible && !document.hidden && !drag && now > hold) {
-        acc += dt * 0.03;   // 30 Pixel pro Sekunde
-        if (acc >= 1) { const step = Math.floor(acc); acc -= step; box.scrollLeft += step; }
-      }
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
   }
 
   function init() {
