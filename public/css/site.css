@@ -96,8 +96,8 @@ h1 {
 .stage-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; font: 400 12px var(--mono); color: var(--faint); }
 /* Desktop: Porträt groß, Körper endet auf der Linie zur Academy, der Pixel-Auslauf fällt hinüber (Maße setzt pixel.js) */
 @media (min-width: 901px) {
-  .hero { position: relative; z-index: 2; }
-  .hero-grid { position: relative; align-content: center; }
+  .hero { position: relative; z-index: 2; padding-bottom: clamp(40px, 4vw, 64px); }
+  .hero-grid { position: relative; align-content: start; }
   .stage { position: absolute; grid-area: auto; width: auto; max-width: none; }
   .stage-bar { position: absolute; margin: 0; white-space: nowrap; }
 }
@@ -164,6 +164,35 @@ html.js .path.is-on .ph-px i { animation: px-in 0s calc(var(--k, 0) * 18ms) both
 .all-modules[open] summary::before { content: "\2212"; }
 .all-modules summary:hover { text-decoration: underline; text-underline-offset: 5px; }
 .lessons.lessons-all { margin-top: 14px; }
+
+/* Academy: Mitglieder als Pixel, gebaute Systeme, Inhalt */
+.academy .sec-head { max-width: 1120px; }
+.crowd { margin: clamp(48px, 5vw, 72px) 0 0; }
+.crowd-head { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 8px 26px; margin-bottom: 24px; }
+.crowd-num { font: 500 clamp(88px, 12cqi, 168px)/0.78 var(--serif); letter-spacing: -0.045em; color: var(--ink); }
+.crowd-text { font: 500 clamp(24px, 2.4cqi, 32px)/1.2 var(--serif); letter-spacing: -0.01em; color: var(--ink); padding-bottom: 4px; }
+.crowd-text small { display: block; margin-top: 10px; font: 400 12px/1.5 var(--mono); letter-spacing: 0; color: var(--faint); }
+.crowd-grid { display: block; }
+
+.sub-head { font: 500 13px var(--mono); color: var(--ink); margin: clamp(72px, 8vw, 112px) 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
+.builds { display: grid; grid-template-columns: repeat(3, 1fr); }
+.builds li { display: flex; flex-direction: column; padding: 30px clamp(20px, 2.4vw, 34px) 30px 0; border-bottom: 1px solid var(--line); }
+.builds li:not(:nth-child(3n + 1)) { padding-left: clamp(20px, 2.4vw, 34px); border-left: 1px solid var(--line); }
+.builds .px-sprite { margin: 0 0 18px -4px; }
+.build-k { font: 600 12px var(--mono); color: var(--accent-dark); text-transform: uppercase; letter-spacing: 0.06em; }
+.builds h4 { margin: 8px 0 10px; font: 500 25px/1.18 var(--serif); letter-spacing: -0.012em; color: var(--ink); text-wrap: balance; }
+.builds li > p:not(.build-k):not(.build-meta) { font-size: 17px; line-height: 1.5; color: var(--body); }
+.build-meta { margin-top: auto; padding-top: 18px; font: 400 12px/1.5 var(--mono); color: var(--faint); }
+
+.inside-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 clamp(28px, 4vw, 64px); }
+.inside-list li { position: relative; padding: 16px 0 16px 24px; border-bottom: 1px solid var(--line); color: var(--body); line-height: 1.45; }
+.inside-list li::before { content: ""; position: absolute; left: 0; top: calc(16px + 0.5em); width: 9px; height: 9px; background: var(--accent); }
+.inside-list b { font-weight: 600; color: var(--ink); }
+.inside .all-modules { margin-top: 22px; }
+
+.price { font: 400 13px/1.6 var(--mono); color: var(--muted); text-align: center; }
+.price b { font: 500 26px var(--serif); color: var(--ink); margin-right: 4px; }
+.price span { color: var(--faint); font-size: 12px; }
 
 /* Angebotskarte */
 .offer {
@@ -255,6 +284,9 @@ figcaption a { font: 400 12px var(--mono); color: var(--faint); text-underline-o
   .stage { justify-self: center; max-width: 520px; margin: 36px 0 8px; }
   .offer { grid-template-columns: 1fr; }
   .quotes, .services, .steps { grid-template-columns: 1fr; }
+  .builds { grid-template-columns: 1fr 1fr; }
+  .builds li:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
+  .builds li:nth-child(2n) { padding-left: clamp(20px, 2.4vw, 34px); border-left: 1px solid var(--line); }
   .phases { grid-template-columns: 1fr 1fr; row-gap: 44px; }
   .footer-top { grid-template-columns: 1fr; }
   .nav-links { display: none; }
@@ -264,6 +296,9 @@ figcaption a { font: 400 12px var(--mono); color: var(--faint); text-underline-o
   .lessons { --s: 10px; --g: 3px; }
   .lesson-list li { grid-template-columns: 2.6ch 1fr auto; gap: 8px 12px; }
   .phases { grid-template-columns: 1fr; }
+  .builds, .inside-list { grid-template-columns: 1fr; }
+  .builds li:nth-child(2n) { padding-left: 0; border-left: 0; }
+  .crowd-head { gap: 6px 18px; }
   .phases .ph-meta { min-height: 0; }
   .path-extra { flex-direction: column; align-items: flex-start; }
   .path-extra .ph-px { grid-template-columns: repeat(14, 10px); --s: 10px; --g: 3px; }

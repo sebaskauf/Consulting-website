@@ -44,6 +44,28 @@
       return p;
     },
     wave: () => [[16, 4, "body"], [16, 3, "body"], [17, 2, "body"], [17, 1, "light"]],
+    camera: () => {
+      const p = [];
+      for (let x = 17; x <= 23; x++) for (let y = 4; y <= 8; y++) p.push([x, y, "ink"]);
+      p.push([18, 3, "ink"], [19, 3, "ink"]);
+      for (let x = 19; x <= 21; x++) for (let y = 5; y <= 7; y++) p.push([x, y, "metal"]);
+      p.push([20, 6, "screen"], [22, 5, "body"]);
+      return p;
+    },
+    server: () => {
+      const p = [];
+      for (let x = 18; x <= 23; x++) for (let y = 0; y <= 10; y++) p.push([x, y, (x === 18 || x === 23 || y === 0 || y === 10) ? "ink" : "metalDark"]);
+      [3, 6, 9].forEach((y) => { for (let x = 19; x <= 22; x++) p.push([x, y, "ink"]); });
+      [1, 4, 7].forEach((y) => p.push([21, y, "body"], [22, y, "light"]));
+      return p;
+    },
+    mask: () => {
+      const p = [];
+      for (let x = 2; x <= 13; x++) p.push([x, 4, "ink"], [x, 5, "ink"]);
+      p.push([0, 3, "ink"], [1, 4, "ink"], [0, 6, "ink"]);
+      [[5, 4], [5, 5], [10, 4], [10, 5]].forEach(([x, y]) => p.push([x, y, "screen"]));
+      return p;
+    },
     laptop: () => {
       const p = [];
       for (let x = 17; x <= 23; x++) for (let y = 4; y <= 8; y++) p.push([x, y, (x === 17 || x === 23 || y === 4 || y === 8) ? "ink" : "screen"]);
@@ -147,6 +169,10 @@
     teacher: { acc: ["glasses", "pointer"] },
     builder: { acc: ["hammer"] },
     loop: { acc: ["box"] },
+    os: { acc: ["laptop"] },
+    content: { acc: ["camera"] },
+    hermes: { acc: ["server"] },
+    faceless: { acc: ["mask"] },
   };
   function paintSprite(cv, hover) {
     const def = SPRITES[cv.dataset.sprite];
@@ -157,7 +183,8 @@
     cv.width = W; cv.height = H;
     const ctx = cv.getContext("2d");
     ctx.clearRect(0, 0, W, H);
-    drawAt(ctx, s, Math.round(W / 2 - 8), H - 1);
+    // mittig, aber so, dass Zubehör links oder rechts nicht abgeschnitten wird
+    drawAt(ctx, s, Math.max(s.ox, Math.min(Math.round(W / 2 - 8), W - 1 - (s.w - 1 - s.ox))), H - 1);
     cv.style.width = W * px + "px";
     cv.style.height = H * px + "px";
   }
@@ -230,8 +257,9 @@
     const desk = window.matchMedia("(min-width: 901px)");
     const SHOULDER = Math.min(...P.rows.map((r) => r.search(/[^.]/)).filter((i) => i >= 0));
 
+    let onLine = false;   // Desktop: Körper endet genau auf der Linie zur nächsten Sektion
     function floor() {
-      if (desk.matches) return; // dort steht der Laptop-Claude auf der Linie der Academy-Sektion
+      if (onLine) return;   // dann steht der Laptop-Claude auf dieser Linie
       ctx.fillStyle = cssVar("--line-strong");
       for (let x = 0; x < bx - 3; x += 3) ctx.fillRect(x, helperFoot + 1, 2, 1);
     }
@@ -292,8 +320,11 @@
       fig.querySelector(".stage-box").style.width = COLS * px + "px";
     }
     function layout() {
+      const hero = grid.closest(".hero"), next = hero.nextElementSibling;
+      if (next) next.style.paddingTop = "";
+      onLine = false;
       if (!desk.matches) {
-        fig.style.left = fig.style.bottom = bar.style.right = bar.style.bottom = grid.style.minHeight = "";
+        fig.style.left = fig.style.top = bar.style.right = bar.style.top = grid.style.minHeight = "";
         const avail = fig.clientWidth;
         // ganzzahlig, solange es passt; auf schmalen Schirmen stufenlos (hohe Pixeldichte hält es scharf)
         let px = Math.floor(avail / COLS);
@@ -301,26 +332,35 @@
         size(px);
         return;
       }
-      // so groß, wie neben dem Text und in der Höhe des Fensters Platz ist; halbe Stufen nur bei hoher Pixeldichte
+      // so groß, dass die Schultern neben den Text passen und der Körper ganz im ersten Bildschirm steht;
+      // halbe Stufen nur bei hoher Pixeldichte
       const dpr = window.devicePixelRatio || 1;
-      const gr = grid.getBoundingClientRect();
+      const gr = grid.getBoundingClientRect(), y0 = gr.top + window.scrollY;
       const gut = parseFloat(getComputedStyle(grid).paddingRight) || 24;
-      const textRight = Math.max(...[".hero-head", ".hero-body"].map((s) => grid.querySelector(s).getBoundingClientRect().right));
-      const A = textRight + 24;                                   // ab hier dürfen die Schultern anfangen
+      const parts = [".hero-head", ".hero-body"].map((s) => grid.querySelector(s).getBoundingClientRect());
+      const A = Math.max(...parts.map((r) => r.right)) + 24;     // ab hier dürfen die Schultern anfangen
       const B = document.documentElement.clientWidth - gut;       // weiter rechts nicht
-      const reach = COLS - LEFT - SHOULDER, solidRows = TOP + solidBH;
-      let px = Math.min((B - A) / reach, (window.innerHeight - 112) / solidRows, 6);
+      const reach = COLS - LEFT - SHOULDER;
+      let px = Math.min((B - A) / reach, (window.innerHeight - 24 - y0) / solidBH, 6);
       px = Math.max(2, Math.floor(px * dpr) / dpr);
       size(px);
-      const right = Math.max(gr.right - gut, A + reach * px);   // bündig mit dem Inhalt, sonst so weit rechts wie nötig
-      const pb = parseFloat(getComputedStyle(grid.closest(".hero")).paddingBottom) || 0;
-      const over = ((P.fade || 0) + FLOOR) * px;
+      // Haare auf Höhe der Überschrift. Ist der Text kürzer als der Körper, endet der Körper genau
+      // auf der Linie zur nächsten Sektion, sonst steht er auf seinem eigenen Boden
+      const pb = parseFloat(getComputedStyle(hero).paddingBottom) || 0;
+      const textBottom = Math.max(...parts.map((r) => r.bottom)) + window.scrollY;
+      const bodyBottom = y0 + solidBH * px;
+      onLine = bodyBottom >= textBottom + pb;
+      grid.style.minHeight = onLine ? bodyBottom - pb - y0 + "px" : "";
+      const right = Math.min(B, Math.max(A + reach * px, gr.right - gut + 96));   // gern etwas über den Inhaltsrand hinaus
       fig.style.left = right - COLS * px - gr.left + "px";
-      fig.style.bottom = -(pb + over) + "px";
-      grid.style.minHeight = Math.max(0, solidRows * px - pb) + "px";
-      // Bildunterschrift steht auf derselben Linie wie der Laptop-Claude, links von ihm
-      bar.style.right = COLS * px - helperX * px + 14 + "px";
-      bar.style.bottom = over + 8 + "px";
+      fig.style.top = bodyBottom - (TOP + solidBH) * px - y0 + "px";
+      // der Pixel-Auslauf fällt in die nächste Sektion, deren Inhalt bleibt frei
+      const over = ((P.fade || 0) + FLOOR) * px;
+      const heroBottom = Math.max(bodyBottom, textBottom + pb), spill = bodyBottom + over + 40 - heroBottom;
+      if (next && parseFloat(getComputedStyle(next).paddingTop) < spill + 48) next.style.paddingTop = spill + 48 + "px";
+      // Bildunterschrift unter dem Auslauf, rechtsbündig mit dem Porträt
+      bar.style.right = (COLS - LEFT - BW) * px + "px";
+      bar.style.top = "calc(100% + 12px)";
     }
     layout();
     window.addEventListener("resize", () => { layout(); if (finished) frame(1e9); }, { passive: true });
@@ -375,8 +415,64 @@
     io.observe(box);
   }
 
+  /* ---------- Academy: jedes Kästchen ein Mitglied, das orange ist der freie Platz ---------- */
+  function crowd() {
+    const cv = document.querySelector(".crowd-grid");
+    if (!cv) return;
+    const n = Number(cv.dataset.n);
+    const ctx = cv.getContext("2d");
+    let cols = 1, s = 9, g = 3, shown = reduce ? n : 0, seat = true;
+    // Reihenfolge, in der die Kästchen erscheinen: grob von links nach rechts, mit Zufall
+    let seed = 11;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    let order = [];
+    function layout() {
+      const w = cv.parentElement.clientWidth;
+      s = w < 600 ? 6 : 9; g = w < 600 ? 2 : 3;
+      cols = Math.max(10, Math.floor((w + g) / (s + g)));
+      const rows = Math.ceil((n + 1) / cols);
+      const W = cols * (s + g) - g, H = rows * (s + g) - g, dpr = window.devicePixelRatio || 1;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      cv.style.width = W + "px"; cv.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed = 11;
+      order = Array.from({ length: n }, (_, i) => ({ i, k: (i % cols) / cols + rnd() * 0.35 })).sort((a, b) => a.k - b.k).map((o) => o.i);
+      draw();
+    }
+    function cell(i) { return [(i % cols) * (s + g), Math.floor(i / cols) * (s + g)]; }
+    function draw() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.fillStyle = cssVar("--ink");
+      for (let k = 0; k < shown; k++) { const [x, y] = cell(order[k]); ctx.fillRect(x, y, s, s); }
+      if (shown >= n && seat) { const [x, y] = cell(n); ctx.fillStyle = cssVar("--accent"); ctx.fillRect(x, y, s, s); }
+    }
+    layout();
+    let rt;
+    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(layout, 120); }, { passive: true });
+    if (reduce || !("IntersectionObserver" in window)) { shown = n; draw(); return; }
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      const t0 = performance.now(), DUR = 1600;
+      const tick = (now) => {
+        const u = Math.min(1, (now - t0) / DUR);
+        shown = Math.round(n * (1 - Math.pow(1 - u, 2)));
+        draw();
+        if (u < 1) requestAnimationFrame(tick);
+        else setInterval(() => {   // der freie Platz blinkt kurz, wie ein Cursor
+          if (document.hidden) return;
+          seat = false; draw();
+          setTimeout(() => { seat = true; draw(); }, 380);
+        }, 1500);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.3 });
+    io.observe(cv);
+  }
+
   function init() {
     hero();
+    crowd();
     document.querySelectorAll(".px-word").forEach(paintWord);
     document.querySelectorAll(".px-sprite").forEach((cv) => {
       paintSprite(cv, false);
