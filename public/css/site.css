@@ -94,6 +94,13 @@ h1 {
 .stage-canvas { position: relative; z-index: 1; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
 .stage-fallback { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; object-fit: contain; }
 .stage-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; font: 400 12px var(--mono); color: var(--faint); }
+/* Desktop: Porträt groß, Körper endet auf der Linie zur Academy, der Pixel-Auslauf fällt hinüber (Maße setzt pixel.js) */
+@media (min-width: 901px) {
+  .hero { position: relative; z-index: 2; }
+  .hero-grid { position: relative; align-content: center; }
+  .stage { position: absolute; grid-area: auto; width: auto; max-width: none; }
+  .stage-bar { position: absolute; margin: 0; white-space: nowrap; }
+}
 
 /* ---------- Sektionen ---------- */
 .section { position: relative; padding: var(--section-y) 0; }

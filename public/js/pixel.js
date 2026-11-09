@@ -226,8 +226,12 @@
 
     let blinkA = false, blinkB = false;
     const c = colors();
+    // Desktop: Porträt groß, Körper endet auf der Linie zur Academy, der Auslauf fällt in die nächste Sektion
+    const desk = window.matchMedia("(min-width: 901px)");
+    const SHOULDER = Math.min(...P.rows.map((r) => r.search(/[^.]/)).filter((i) => i >= 0));
 
     function floor() {
+      if (desk.matches) return; // dort steht der Laptop-Claude auf der Linie der Academy-Sektion
       ctx.fillStyle = cssVar("--line-strong");
       for (let x = 0; x < bx - 3; x += 3) ctx.fillRect(x, helperFoot + 1, 2, 1);
     }
@@ -281,17 +285,45 @@
       }
     }
 
-    function layout() {
-      const avail = fig.clientWidth;
-      // ganzzahlig, solange es passt; auf schmalen Schirmen stufenlos (hohe Pixeldichte hält es scharf)
-      let px = Math.floor(avail / COLS);
-      if (px < 2) px = avail / COLS;
+    const grid = fig.parentElement, bar = fig.querySelector(".stage-bar");
+    function size(px) {
       cv.style.width = COLS * px + "px";
       cv.style.height = ROWS * px + "px";
       fig.querySelector(".stage-box").style.width = COLS * px + "px";
     }
+    function layout() {
+      if (!desk.matches) {
+        fig.style.left = fig.style.bottom = bar.style.right = bar.style.bottom = grid.style.minHeight = "";
+        const avail = fig.clientWidth;
+        // ganzzahlig, solange es passt; auf schmalen Schirmen stufenlos (hohe Pixeldichte hält es scharf)
+        let px = Math.floor(avail / COLS);
+        if (px < 2) px = avail / COLS;
+        size(px);
+        return;
+      }
+      // so groß, wie neben dem Text und in der Höhe des Fensters Platz ist; halbe Stufen nur bei hoher Pixeldichte
+      const dpr = window.devicePixelRatio || 1;
+      const gr = grid.getBoundingClientRect();
+      const gut = parseFloat(getComputedStyle(grid).paddingRight) || 24;
+      const textRight = Math.max(...[".hero-head", ".hero-body"].map((s) => grid.querySelector(s).getBoundingClientRect().right));
+      const A = textRight + 24;                                   // ab hier dürfen die Schultern anfangen
+      const B = document.documentElement.clientWidth - gut;       // weiter rechts nicht
+      const reach = COLS - LEFT - SHOULDER, solidRows = TOP + solidBH;
+      let px = Math.min((B - A) / reach, (window.innerHeight - 112) / solidRows, 6);
+      px = Math.max(2, Math.floor(px * dpr) / dpr);
+      size(px);
+      const right = Math.max(gr.right - gut, A + reach * px);   // bündig mit dem Inhalt, sonst so weit rechts wie nötig
+      const pb = parseFloat(getComputedStyle(grid.closest(".hero")).paddingBottom) || 0;
+      const over = ((P.fade || 0) + FLOOR) * px;
+      fig.style.left = right - COLS * px - gr.left + "px";
+      fig.style.bottom = -(pb + over) + "px";
+      grid.style.minHeight = Math.max(0, solidRows * px - pb) + "px";
+      // Bildunterschrift steht auf derselben Linie wie der Laptop-Claude, links von ihm
+      bar.style.right = COLS * px - helperX * px + 14 + "px";
+      bar.style.bottom = over + 8 + "px";
+    }
     layout();
-    window.addEventListener("resize", () => { layout(); }, { passive: true });
+    window.addEventListener("resize", () => { layout(); if (finished) frame(1e9); }, { passive: true });
 
     const END = BUILD + 80 + 520;
     let finished = reduce;
