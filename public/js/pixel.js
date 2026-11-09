@@ -66,6 +66,28 @@
       [[5, 4], [5, 5], [10, 4], [10, 5]].forEach(([x, y]) => p.push([x, y, "screen"]));
       return p;
     },
+    book: () => {
+      const p = [];
+      for (let x = 17; x <= 22; x++) for (let y = 3; y <= 9; y++) p.push([x, y, x === 17 ? "ink" : y === 3 || y === 9 ? "boxDark" : "box"]);
+      for (let y = 5; y <= 7; y += 2) for (let x = 19; x <= 21; x++) p.push([x, y, "boxDark"]);
+      return p;
+    },
+    bolt: () => [[20, 1, "light"], [19, 2, "light"], [18, 3, "body"], [17, 4, "body"], [18, 4, "body"], [19, 4, "body"], [20, 4, "body"], [19, 5, "body"], [18, 6, "dark"], [17, 7, "dark"]],
+    gear: () => {
+      const p = [];
+      for (let x = 17; x <= 23; x++) for (let y = 3; y <= 9; y++) {
+        const dx = x - 20, dy = y - 6, r = Math.max(Math.abs(dx), Math.abs(dy));
+        if (r === 3 && (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) p.push([x, y, "metal"]);
+        else if (r <= 2 && r >= 1) p.push([x, y, "metalDark"]);
+      }
+      return p;
+    },
+    phone: () => {
+      const p = [];
+      for (let x = 17; x <= 21; x++) for (let y = 2; y <= 10; y++) p.push([x, y, (x === 17 || x === 21 || y === 2 || y === 10) ? "ink" : "screen"]);
+      p.push([18, 4, "body"], [19, 4, "body"], [20, 4, "body"], [18, 6, "light"], [19, 6, "light"], [19, 9, "ink"]);
+      return p;
+    },
     laptop: () => {
       const p = [];
       for (let x = 17; x <= 23; x++) for (let y = 4; y <= 8; y++) p.push([x, y, (x === 17 || x === 23 || y === 4 || y === 8) ? "ink" : "screen"]);
@@ -173,6 +195,10 @@
     content: { acc: ["camera"] },
     hermes: { acc: ["server"] },
     faceless: { acc: ["mask"] },
+    book: { acc: ["book"] },
+    bolt: { acc: ["bolt"] },
+    gear: { acc: ["gear"] },
+    phone: { acc: ["phone"] },
   };
   function paintSprite(cv, hover) {
     const def = SPRITES[cv.dataset.sprite];
@@ -397,51 +423,23 @@
 
   }
 
-  /* ---------- Lektionspixel: drucken, sobald sichtbar ---------- */
-  function lessons() {
-    document.querySelectorAll(".ph-px[data-n]").forEach((el, p) => {
-      const n = Number(el.dataset.n);
-      for (let i = 0; i < n; i++) {
-        const sq = document.createElement("i");
-        sq.style.setProperty("--k", i + p * 3);
-        el.appendChild(sq);
-      }
-    });
-    const box = document.querySelector(".path");
-    if (!box) return;
-    if (reduce || !("IntersectionObserver" in window)) { box.classList.add("is-on"); return; }
-    const io = new IntersectionObserver((es) => {
-      if (es.some((e) => e.isIntersecting)) { box.classList.add("is-on"); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(box);
-  }
-
-  /* ---------- Academy: Karten schieben sich beim Scrollen übereinander ---------- */
-  function stack() {
-    const cards = [...document.querySelectorAll(".stack-card")];
-    if (!cards.length) return;
-    // Karten, die höher sind als der Bildschirm, kleben nicht fest, sonst wäre ihr unteres Ende nie lesbar
-    function fit() {
-      cards.forEach((c) => {
-        c.classList.remove("no-stick");
-        const top = parseFloat(getComputedStyle(c).top) || 0;
-        if (c.offsetHeight > window.innerHeight - top - 12) c.classList.add("no-stick");
-      });
-    }
-    fit();
-    window.addEventListener("resize", fit, { passive: true });
-    if (reduce) return;
+  /* ---------- Academy: der Pfad füllt sich beim Scrollen, erreichte Module leuchten auf ---------- */
+  function path() {
+    const list = document.querySelector(".mods");
+    if (!list) return;
+    const mods = [...list.querySelectorAll(".mod")];
+    const icons = mods.map((m) => m.querySelector(".px-sprite"));
     let ticking = false;
     function update() {
       ticking = false;
-      cards.forEach((c, i) => {
-        const next = cards[i + 1];
-        let u = 0;   // 0 = frei, 1 = von der nächsten Karte ganz verdeckt
-        if (next) {
-          const top = c.getBoundingClientRect().top, nt = next.getBoundingClientRect().top;
-          u = Math.min(1, Math.max(0, 1 - (nt - top) / c.offsetHeight));
-        }
-        c.style.setProperty("--cover", u.toFixed(3));
+      const r = list.getBoundingClientRect();
+      // Fortschritt = wie weit die Linie bei 60 % der Bildschirmhöhe in der Liste steht
+      const y = reduce ? r.height : Math.min(r.height, Math.max(0, window.innerHeight * 0.6 - r.top));
+      list.style.setProperty("--prog", Math.min(1, Math.max(0, (y - 40) / Math.max(1, r.height - 80))).toFixed(4));
+      mods.forEach((m, i) => {
+        const mr = m.getBoundingClientRect();
+        const done = mr.top - r.top + mr.height / 2 <= y;
+        if (done !== m.classList.contains("is-done")) { m.classList.toggle("is-done", done); paintSprite(icons[i], done); }
       });
     }
     window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
@@ -451,15 +449,14 @@
 
   function init() {
     hero();
-    stack();
+    path();
     document.querySelectorAll(".px-word").forEach(paintWord);
     document.querySelectorAll(".px-sprite").forEach((cv) => {
       paintSprite(cv, false);
       const host = cv.closest("li, .offer-side") || cv;
       host.addEventListener("mouseenter", () => paintSprite(cv, true));
-      host.addEventListener("mouseleave", () => paintSprite(cv, false));
+      host.addEventListener("mouseleave", () => paintSprite(cv, host.classList.contains("is-done")));
     });
-    lessons();
     let rt;
     window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => document.querySelectorAll(".px-word-big").forEach(paintWord), 120); }, { passive: true });
     // Footer-Tamagotchi blinzelt selten
